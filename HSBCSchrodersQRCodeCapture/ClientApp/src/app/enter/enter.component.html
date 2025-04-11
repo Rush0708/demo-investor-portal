@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<!--<ng-container *ngIf="!codeExists">-->
+<ng-container>
+  <header>
+    <div class="container">
+      <div class="row row-logo">
+        <div class="col-12"><img src="assets/images/carling-logo.svg" alt="Carling" width="150" height="84"></div>
+      </div>
+      <div class="row">
+        <div class="col-12"><h1>YOU MUST HAVE FOUND <br class="d-none d-extra-large-block">A LIMITED EDITION CAN <br class="d-none d-lg-block">IN A PROMOTIONAL PACK OF CARLING. NICE ONE!</h1></div>
+      </div>
+    </div>
+  </header>
+  <article>
+    <section class="message">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-11">
+            <p>You’ve come to the right place to claim your Umbro football shirt. We just need some details to be able to get your shirt sent to you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="app">
+      <div class="container reset-on-tablet-sigle-use">
+        <div class="row reset-on-tablet-row-nm">
+          <div class="col-12 col-md-6 t-shirt-container">
+            <figure class="t-shirt t-shirt-black">
+              <img src="/assets/images/t-shirt.png" alt="Umbro football shirt" class="img-fluid">
+            </figure>
+          </div>
+          <div class="col-12 col-md-6 welcome-form-container">
+            <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="w-100 form-bold needs-validation carling-form carling-form-welcome" novalidate>
+              <div class="form-row">
+                <div class="col-12 font-weight-bold">
+                  <p>Enter the 10-digit unique code found on your Limited Edition can below:</p>
+                </div>
+                <div class="col-12 fr-single">
+                  <input type="text" name="code" [(ngModel)]="enteredCompetitioncode" class="form-control" placeholder="CODE" (input)="onCodeChange()" required>
+                  <div class="invalid-feedback">Required</div>
+                  <div *ngIf="dataError" class="error" style="    font-family: TradeGothic-BoldCondTwenty, sans-serif;    text-transform: uppercase;    color: #DA291C;    margin-bottom: 1rem;    font-size: 80%">
+                    {{errorMessage}}
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-12 py-4">
+                  <button type="submit" class="btn btn-primary">SUBMIT</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+</ng-container>
+<!-- <app-details *ngIf="codeExists"></app-details>-->

@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+  <ng-container *ngIf="!dataAdded && !insertError">
+    <header>
+      <div class="container">
+        <div class="row row-logo">
+          <div class="col-12"><img src="assets/images/carling-logo.svg" alt="Carling" width="150" height="84"></div>
+        </div>
+        <div class="row">
+          <div class="col-12"><h1>YOUR UMBRO FOOTBALL SHIRT WILL BE WINGING ITS WAY TO YOU AS SOON AS WE GET YOUR DETAILS.</h1></div>
+        </div>
+      </div>
+    </header>
+    <article>
+      <section class="app">
+        <div class="container">
+          <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="w-100 form-bold needs-validation carling-form data-capture" novalidate>
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <p>From the pitch to the streets, our football shirt has a classic style with a contemporary edge for football fans to wear with pride.</p>
+                <p>There are a set number of shirts per size available, if your size is not displayed it is unavailable and out of stock please select another size.</p>              
+                 <p>
+                    The shirt is a vintage fit, see size guides
+                    <span class="pop-up-message">here<span class="hint-text"><img src="assets/images/chart.png" class="img-fluid"></span></span>.
+                  </p>
+                  <div class="form-row">
+                    <div class="col-12 fr-single">
+                      <div class="custom-select">
+                        <select name="enteredShirtSize" [(ngModel)]="enteredShirtSize" class="form-control" required>
+                          <option *ngFor="let shirtSize of shirtList" [selected]="shirtSize.displayName==shirtSizeDisplayName" [ngValue]="shirtSize">
+                            {{shirtSize.displayName}}
+                          </option>
+                        </select>
+                        <div class="invalid-feedback">REQUIRED</div>
+                        <div class="select-selected" (click)="selectBoxClick($event)">{{shirtSizeDisplayName}}</div>
+                        <div class="select-items select-hide">
+                          <div *ngFor="let shirtSize of shirtList" (click)="selectOptionClick($event, 'shirtSize')">
+                            {{shirtSize.displayName}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                
+                <p>Your football shirt will be sent direct to your home, fill in your details below:</p>
+                <div class="form-row">
+                  <div class="col-12 fr-single">
+                    <p>Please confirm your date of birth.</p>
+                    <input type="date" class="form-control w-40 bg-img-none" placeholder="DD/MM/YYYY (DOB)" [(ngModel)]="enteredDOB" (ngModelChange)="enteredDOB = $event" name="enteredDOB" (change)="checkAge()" required />
+                    <div class="invalid-feedback">PLEASE ENTER A DATE OF BIRTH</div>
+                    <div *ngIf="ageError">
+                      <p style="font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80% ">
+                        We are sorry this promotion is only available to people over the age of 18.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="firstname" (change)="replaceChar()" [(ngModel)]="enteredFirstName" type="text" class="form-control w-80" placeholder="FORENAME" required autocomplete="new">
+                    <div class="invalid-feedback">REQUIRED</div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="surname" (change)="replaceChar()" [(ngModel)]="enteredLastName" type="text" class="form-control w-80" placeholder="SURNAME" required autocomplete="new">
+                    <div class="invalid-feedback">REQUIRED</div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="postcode" [(ngModel)]="enteredPostcode" type="text" class="form-control w-80" placeholder="POSTCODE / EIRCODE" (ngModelChange)="postCodeChange($event)" required autocomplete="new">
+                    <div class="invalid-feedback">REQUIRED</div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <button type="button" class="btn btn-primary" (click)="FindAddress()">FIND ADDRESS</button>
+                    <p *ngIf="showPostcodeError">Please enter a Postcode</p>
+                  </div>
+                  <div *ngIf="addressLoaded" class="col-12 fr-single">
+                    <div class="custom-select">
+                      <select id="enteredAddress" name="enteredAddress" [(ngModel)]="enteredAddress" class="form-control">
+                        <option *ngFor="let address of addressList" [selected]="address==addressDisplay" value={{address}}>
+                          {{address}}
+                        </option>
+                      </select>
+                      <div class="select-selected" (click)="selectBoxClick($event)" style="-webkit-box-shadow: 0px 6px 7px 1px rgba(0,0,0,0.4); box-shadow: 0px 6px 7px 1px rgba(0,0,0,0.4); border-color: #000; overflow: hidden;">{{addressDisplay}}</div>
+                      <div class="select-items select-hide">
+                        <div *ngFor="let address of addressList" (click)="selectOptionClick($event, 'address')">
+                          {{address}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="postcodeError">
+                    <p style="font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80% ">
+                      We couldn't find any addresses matching the postcode you've entered. Please fill in the address fields manually.
+                    </p>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="address1" (change)="replaceChar()" [(ngModel)]="enteredAddress1" type="text" class="form-control" placeholder="ADDRESS 1" (ngModelChange)="address1Change($event)" required autocomplete="new">
+                    <div class="invalid-feedback">REQUIRED</div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="address2" (change)="replaceChar()" [(ngModel)]="enteredAddress2" type="text" class="form-control" placeholder="ADDRESS 2" autocomplete="new">
+
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="address3" (change)="replaceChar()" [(ngModel)]="enteredAddress3" type="text" class="form-control" placeholder="ADDRESS 3" autocomplete="new">
+                    <div class="invalid-feedback">REQUIRED</div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="town" (change)="replaceChar()" [(ngModel)]="enteredTown" type="text" class="form-control" placeholder="TOWN" required autocomplete="new">
+                    <div class="invalid-feedback">REQUIRED</div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="county" (change)="replaceChar()" [(ngModel)]="enteredCounty" type="text" class="form-control" placeholder="COUNTY" autocomplete="new">
+                  </div>
+                  <div class="col-12 fr-single">
+                    <div class="custom-select">
+                      <select name="enteredCountry" [(ngModel)]="enteredCountry" class="form-control" required>
+                        <option *ngFor="let country of countryList" [selected]="country.countryName==countryName" [ngValue]="country">
+                          {{country.countryName}}
+                        </option>
+                      </select>
+                      <div class="invalid-feedback">Please select a country</div>
+                      <div class="select-selected" (click)="selectBoxClick($event)">{{countryName}}</div>
+                      <div class="select-items select-hide">
+                        <div *ngFor="let country of countryList" (click)="selectOptionClick($event, 'country')">
+                          {{country.countryName}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <p>We will use your email address to send you confirmation and dispatch information.</p>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <input name="email" [(ngModel)]="enteredEmail" type="email" class="form-control" placeholder="EMAIL ADDRESS" required pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="new">
+                    <div class="invalid-feedback">PLEASE ENTER A VALID EMAIL</div>
+                  </div>
+                  <div class="col-12">
+                    <p>Which retailer did you buy your pack of Carling from that had the Limited Edition can inside?</p>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <div class="custom-select">
+                      <select name="enteredRetailer" [(ngModel)]="enteredRetailer" class="form-control">
+                        <option *ngFor="let retailer of retailerList" [selected]="retailer.retailerName==retailerName" [ngValue]="retailer">
+                          {{retailer.retailerName}}
+                        </option>
+                      </select>
+                      <div class="select-selected" (click)="selectBoxClick($event)">{{retailerName}}</div>
+                      <div class="select-items select-hide">
+                        <div *ngFor="let retailer of retailerList" (click)="selectOptionClick($event, 'retailer')">
+                          {{retailer.retailerName}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 fr-single">
+                    <div class="form-group">
+                      <label class="form-check-label d-inline-block mr-3" for="TandC">I accept the Terms &amp; Conditions </label>
+                      <input class="form-check-input d-inline-block ml-1" type="checkbox" id="TandCchecked" name="TandCchecked" [(ngModel)]="TandCchecked" (Change)="TandCchecked" required>
+                      <div class="invalid-feedback">You must agree before submitting.</div>
+                    </div>
+                    <p>See <a href="https://www.carling.com/terms" target="_blank" class="link-black">www.carling.com/terms</a> for full terms.</p>
+                  </div>
+
+                  <div class="col-12 fr-single">
+                    <div>
+                      <label>OPT IN*</label>
+                      <p>If you tick the box below, you consent to the Promoter and its affiliated brands and entities contacting you for the purposes set out below:</p>
+                    </div>
+                    <div class="form-check form-check-inline align-items-start">
+                      <input class="form-check-input mt-1 chkbox-min" type="checkbox" id="OptInYes" name="OptInYes" [(ngModel)]="OptIn" (Change)="OptIn">
+                      <label class="form-check-label" for="OptInYes"><span class="font-carling">YES,</span> <span class="font-avenir">I would like to receive messages about sweepstakes, events, special offers, promotions and other fun stuff from Molson Coors and <a href="https://www.molsoncoors.com/brands/our-brands" target="_blank" class="link-black">its affiliated brands and entities</a>. See <a href="https://www.molsoncoors.com/privacy-policy" target="_blank" class="link-black">Privacy Policy | Molson Coors</a> for information about how Molson Coors collects, uses and shares your information.</span></label>
+                    </div>
+                  </div>
+
+                  <div class="col-12 fr-single">
+                    <div class="pb-4">
+                      <re-captcha (resolved)="resolved($event)"
+                                  (error)="onError($event)"
+                                  errorMode="handled"
+                                  siteKey="6LcmZnsaAAAAAB631hQmLt9W_Ut1-K1ICG1-YExS" required></re-captcha>
+                    </div>
+                  </div>
+                  <div *ngIf="captchaRequired && !captchaError " class="error">
+                    <p style=" font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80%">
+                      Please verify you're not a robot.&nbsp;
+                    </p>
+                  </div>
+                  <div *ngIf="captchaError && !captchaRequired" class="error">
+                    <p style=" font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80%">
+                      Couldn't verify captcha. Please try after sometime.
+                    </p>
+                  </div>
+                </div>
+              </div>             
+            </div>
+            <div class="col-12 fr-single">
+              <p>Please see our <a href="https://www.molsoncoors.com/privacy-policy" target="_blank">Privacy Policy</a> for more information on how we collect, use and share your information. </p>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary">SUBMIT</button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </section>
+    </article>
+
+  </ng-container>
+
+  <app-thank-you *ngIf="dataAdded"></app-thank-you>
+  <app-sorry *ngIf="insertError" [errorMessage]="message"></app-sorry>
+
+
+

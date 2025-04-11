@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<ng-container *ngIf="!dataAdded && !wrongAnswer && !insertError">
+  <header>
+    <div class="container">
+      <div class="row row-logo">
+        <div class="col-12"><img src="assets/images/carling-logo.svg" alt="Carling" width="150" height="84"></div>
+      </div>
+      <div class="row">
+        <div class="col-12"><h1>Please answer the questions below</h1></div>
+      </div>     
+    </div>
+  </header>
+  <article>
+    <section class="app-very-short">
+      <div class="container">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="w-100 form-bold needs-validation carling-form data-capture" novalidate>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="form-row">
+                <div class="col-12 fr-single">
+                  <h5 style="font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem;">
+                    {{attemptMessage}}
+                  </h5>
+                </div>
+                <div class="col-12 fr-single">
+                  <p>{{question}}</p>
+                </div>
+                <div class="col-12 fr-single">
+
+                  <div *ngFor="let answer of answerList; let l = last" required>
+                    <input type="radio" name="radio-stacked" [checked]="answer.selected" (click)='answerRadioChecked(answer.answer)' required>
+                    &nbsp;
+                    <label>{{answer.answer}}</label>
+                    <div *ngIf="l" class="invalid-feedback">Please select one answer</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              &nbsp;
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">SUBMIT</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </article>
+  </ng-container>
+  <app-thank-you *ngIf="dataAdded"></app-thank-you>
+  <app-sorry *ngIf="wrongAnswer || insertError" [errorMessage]="message" [answerErrorMessage]="answerErrorMessage"></app-sorry>
+
