@@ -1,4 +1,9 @@
 trigger:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/HSBCSchrodersQRCodeCapture.csproj'
+    feedsToUse: 'select'
   - master
 
 pool:
