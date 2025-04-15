@@ -4,12 +4,13 @@ trigger:
       - master
 
 pool:
-  vmImage: 'windows-latest'
+  name: Azure Pipelines
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  RestoreBuildProjects: '**/HSBCSchrodersQRCodeCapture.csproj'
 
 steps:
 - task: UseNode@1
