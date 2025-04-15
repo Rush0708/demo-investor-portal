@@ -2,7 +2,7 @@ import { selectSetup } from '../../assets/js/setup';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from "@angular/router";
-import { RecaptchaErrorParameters } from "ng-recaptcha";
+//import { RecaptchaErrorParameters } from "ng-recaptcha";
 import { CompetitionService } from "../services/competition.service"
 import { FormService } from "../services/form.service"
 import { Competition } from '../viewModels/competition.viewmodel';
@@ -17,6 +17,7 @@ import { CustomerService } from "../services/customer.service";
 import * as $ from 'jquery';
 import { NgForm, FormGroup } from '@angular/forms';
 import { RetailerService } from '../services/retailer.service';
+
 
 
 @Component({
@@ -57,9 +58,9 @@ export class DetailsComponent implements OnInit {
       this.captchaRequired = false;
     }
   }
-  public onError(errorDetails: RecaptchaErrorParameters): void {
-    this.captchaError = true;
-  }
+  //public onError(errorDetails: RecaptchaErrorParameters): void {
+  //  this.captchaError = true;
+  //}
 
   get enteredDOB(): Date {
     return this.formService.form.dob;
