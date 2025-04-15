@@ -1,15 +1,22 @@
 trigger:
-- master
+  branches:
+    include:
+      - master
 
 pool:
-  vmImage: 'windows-latest'
+  name: Azure Pipelines
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  RestoreBuildProjects: '**/HSBCSchrodersQRCodeCapture.csproj'
 
 steps:
+- task: UseNode@1
+  inputs:
+    version: '16.x'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -23,16 +30,37 @@ steps:
     projects: '**/HSBCSchrodersQRCodeCapture.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: '**/HSBCSchrodersQRCodeCapture.csproj'
+    arguments: '--output $(build.artifactStagingDirectory)'
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: 'HSBCSchrodersQRCodeCapture'
+    arguments: '--output $(build.artifactStagingDirectory)'
+
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: >
+      /p:DeployOnBuild=true
+      /p:WebPublishMethod=Package
+      /p:PackageAsSingleFile=true
+      /p:SkipInvalidConfigurations=true
+      /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip"
+      /p:DeployIisAppPath="Default Web Site"
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -40,3 +68,9 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactStagingDirectory)'
+  condition: succeededOrFailed()
