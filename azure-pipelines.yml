@@ -1,5 +1,5 @@
 trigger:
-- master
+  - master
 
 pool:
   vmImage: 'windows-latest'
@@ -10,6 +10,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseNode@1
+  inputs:
+    version: '16.x'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -32,7 +36,13 @@ steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    msbuildArgs: >
+      /p:DeployOnBuild=true
+      /p:WebPublishMethod=Package
+      /p:PackageAsSingleFile=true
+      /p:SkipInvalidConfigurations=true
+      /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip"
+      /p:DeployIisAppPath="Default Web Site"
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
@@ -40,3 +50,5 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+
