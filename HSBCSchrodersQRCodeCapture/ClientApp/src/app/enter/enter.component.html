@@ -1,59 +1,85 @@
-<!DOCTYPE html>
-
-<!--<ng-container *ngIf="!codeExists">-->
 <ng-container>
-  <header>
+  <section class="banner">
     <div class="container">
-      <div class="row row-logo">
-        <div class="col-12"><img src="assets/images/carling-logo.svg" alt="Carling" width="150" height="84"></div>
-      </div>
       <div class="row">
-        <div class="col-12"><h1>YOU MUST HAVE FOUND <br class="d-none d-extra-large-block">A LIMITED EDITION CAN <br class="d-none d-lg-block">IN A PROMOTIONAL PACK OF CARLING. NICE ONE!</h1></div>
+        <div class="col-12 col-md-auto">
+          <h1>Investor Insight Portal</h1>
+        </div>
       </div>
     </div>
-  </header>
-  <article>
-    <section class="message">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 col-md-11">
-            <p>You’ve come to the right place to claim your Umbro football shirt. We just need some details to be able to get your shirt sent to you.</p>
+  </section>
+
+  <main class="pt-default pb-default">
+    <div class="container">
+      <div class="row pb-default">
+        <div class="col-12">
+          <div class="row pb-default">
+            <div class="col-12">
+              <h2 class="custom">Sign-in</h2>
+            </div>
           </div>
-        </div>
-      </div>
-    </section>
-    <section class="app">
-      <div class="container reset-on-tablet-sigle-use">
-        <div class="row reset-on-tablet-row-nm">
-          <div class="col-12 col-md-6 t-shirt-container">
-            <figure class="t-shirt t-shirt-black">
-              <img src="/assets/images/t-shirt.png" alt="Umbro football shirt" class="img-fluid">
-            </figure>
-          </div>
-          <div class="col-12 col-md-6 welcome-form-container">
-            <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="w-100 form-bold needs-validation carling-form carling-form-welcome" novalidate>
-              <div class="form-row">
-                <div class="col-12 font-weight-bold">
-                  <p>Enter the 10-digit unique code found on your Limited Edition can below:</p>
-                </div>
-                <div class="col-12 fr-single">
-                  <input type="text" name="code" [(ngModel)]="enteredCompetitioncode" class="form-control" placeholder="CODE" (input)="onCodeChange()" required>
-                  <div class="invalid-feedback">Required</div>
-                  <div *ngIf="dataError" class="error" style="    font-family: TradeGothic-BoldCondTwenty, sans-serif;    text-transform: uppercase;    color: #DA291C;    margin-bottom: 1rem;    font-size: 80%">
-                    {{errorMessage}}
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-6">
+              <form #f="ngForm" class="needs-validation" novalidate (ngSubmit)="onSubmit(f)">
+                <div class="row pb-default">
+                  <div class="col-12 pb-4">
+                    <label for="InvestorID" class="form-label">Investor ID*</label>
+                    <input type="text"
+                           class="form-control"
+                           id="InvestorID"
+                           name="InvestorID"
+                           [(ngModel)]="enteredInvestorCode"
+                           placeholder="9-digit numeric code starting with 9"
+                           minlength="9"
+                           maxlength="9"
+                           pattern="[0-9]{9}"
+                           required
+                           (input)="onCodeChange()">
+                    <div class="invalid-feedback">Please enter a valid Investor ID</div>
+                    <p class="pt-2">* Your Investor ID is displayed on your statement</p>
+                  </div>
+                  <!-- Error Message Display -->
+                  <div *ngIf="dataError1" class="col-12 pb-4">
+                    <div class="form-note">
+                      <h3 class="mb-4">Error: Details not found – please check your statement for your Investor ID.</h3>
+                      <div class="pt-2">
+                        If you are still having issues, please contact us on:
+                        <br><br>
+                        Schroder Unit Trusts Limited<br>
+                        PO Box 1402, Sunderland, SR43 4AF<br><br>
+                        <strong>T</strong> 0800 182 2399<br>
+                        <strong>E</strong>
+                        <a href="mailto:schrodersinvestor@hsbc.com">schrodersinvestor@hsbc.com</a><br>
+                        <a href="https://www.schroders.co.uk" target="_blank" rel="noopener noreferrer">www.schroders.co.uk</a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Error Message Display -->
+                  <!-- Second Error Message Display -->
+                  <div *ngIf="dataError2" class="col-12 pb-4">
+                    <div class="form-note">
+                      <h3 class="mb-4">Error: Your details have already been provided.</h3>
+                      <p>No further action is required at this time. If you wish to amend your original submission, please contact us on: </p>
+                      <p>
+                        Schroder Unit Trusts Limited <br>
+                        PO Box 1402, Sunderland, SR43 4AF <br><br>
+                        <strong>T</strong> 0800 182 2399 <br>
+                        <strong>E</strong> <a href="mailto:schrodersinvestor@hsbc.com">schrodersinvestor@hsbc.com</a> <br>
+                        <a href="https://www.schroders.co.uk" target="_blank" rel="noopener noreferrer">www.schroders.co.uk</a>
+                      </p>
+                    </div>
+                  </div>
+                  <!-- End Error Message Display -->
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-outline-primary btn-submit">Sign-in</button>
                   </div>
                 </div>
-              </div>
-              <div class="form-row">
-                <div class="col-12 py-4">
-                  <button type="submit" class="btn btn-primary">SUBMIT</button>
-                </div>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
+
         </div>
       </div>
-    </section>
-  </article>
+    </div>
+  </main>
 </ng-container>
-<!-- <app-details *ngIf="codeExists"></app-details>-->

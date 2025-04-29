@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 using Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Carling_ClaimYourShirt.Models.RequestModels;
+using HSBCSchrodersQRCodeCapture.Models.RequestModels;
 
-namespace Carling_ClaimYourShirt.Controllers
+namespace HSBCSchrodersQRCodeCapture.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -26,7 +26,7 @@ namespace Carling_ClaimYourShirt.Controllers
                 var getCompetitionDataRequest = new GetCompetitionDataRequest();
                 getCompetitionDataRequest.competitionCode = competitionCode;
                 getCompetitionDataRequest.competitionId = Convert.ToInt32(competitionId);
-                var checkCompetitionCodeResult = await _competitionService.CheckCompetitiondata(getCompetitionDataRequest);
+                var checkCompetitionCodeResult = await _competitionService.CheckInvestordata(getCompetitionDataRequest);
                 return Ok(checkCompetitionCodeResult);
             }
             catch (Exception exception)

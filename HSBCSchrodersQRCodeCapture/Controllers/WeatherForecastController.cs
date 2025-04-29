@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Carling_ClaimYourShirt.Controllers
+namespace HSBCSchrodersQRCodeCapture.Controllers
 {
     [ApiController]
     [Route("[controller]")]

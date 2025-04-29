@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PAFService;
 
-using Carling_ClaimYourShirt.Models;
+using HSBCSchrodersQRCodeCapture.Models;
 using System.Net;
 
-namespace Carling_ClaimYourShirt.Controllers
+namespace HSBCSchrodersQRCodeCapture.Controllers
 {
     [ApiController]
     [Route("[controller]")]

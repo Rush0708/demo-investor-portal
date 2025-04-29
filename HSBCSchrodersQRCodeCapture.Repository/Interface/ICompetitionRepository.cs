@@ -1,4 +1,4 @@
-﻿using Carling_ClaimYourShirt.Models.RequestModels;
+﻿using HSBCSchrodersQRCodeCapture.Models.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Text;

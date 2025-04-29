@@ -1,214 +1,450 @@
-
-
 <!DOCTYPE html>
-  <ng-container *ngIf="!dataAdded && !insertError">
-    <header>
-      <div class="container">
-        <div class="row row-logo">
-          <div class="col-12"><img src="assets/images/carling-logo.svg" alt="Carling" width="150" height="84"></div>
-        </div>
-        <div class="row">
-          <div class="col-12"><h1>YOUR UMBRO FOOTBALL SHIRT WILL BE WINGING ITS WAY TO YOU AS SOON AS WE GET YOUR DETAILS.</h1></div>
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schroders Global</title>
+  <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="images/favicon.png" sizes="32x32" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="css/style.css">-->
+</head>
+<body class="d-flex flex-column h-100">
+  <div id="sessiontimer" style="display: none;">
+    <div class="container" id="sessiontimerInner">
+      For your security, your session will expire in
+      <span id="sessiontimerCurrent" style="font-weight: bold;">18m:44s</span>
+      due to inactivity. Please continue your activity to avoid losing your progress.
+      If no action is taken, you will be redirected to the first page and will need to restart the process.
+    </div>
+  </div>
+
+  <header class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a href="https://www.schroders.com/en-gb/uk/local/" target="_blank" rel="noopener noreferrer" aria-label="Visit Schroders UK website">
+            <svg viewBox="0 0 292 52" fill="none" height="20px" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="schroders-logo">
+              <title id="schroders-logo">Schroders</title>
+              <!-- SVG paths omitted for brevity -->
+            </svg>
+          </a>
         </div>
       </div>
-    </header>
-    <article>
-      <section class="app">
-        <div class="container">
-          <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="w-100 form-bold needs-validation carling-form data-capture" novalidate>
-            <div class="row">
-              <div class="col-12 col-md-6">
-                <p>From the pitch to the streets, our football shirt has a classic style with a contemporary edge for football fans to wear with pride.</p>
-                <p>There are a set number of shirts per size available, if your size is not displayed it is unavailable and out of stock please select another size.</p>              
-                 <p>
-                    The shirt is a vintage fit, see size guides
-                    <span class="pop-up-message">here<span class="hint-text"><img src="assets/images/chart.png" class="img-fluid"></span></span>.
-                  </p>
-                  <div class="form-row">
-                    <div class="col-12 fr-single">
-                      <div class="custom-select">
-                        <select name="enteredShirtSize" [(ngModel)]="enteredShirtSize" class="form-control" required>
-                          <option *ngFor="let shirtSize of shirtList" [selected]="shirtSize.displayName==shirtSizeDisplayName" [ngValue]="shirtSize">
-                            {{shirtSize.displayName}}
-                          </option>
+    </div>
+  </header>
+
+  <section class="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-auto">
+          <h1>Investor Insight Portal</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="pt-default pb-default">
+    <div class="container">
+      <div class="row pb-default">
+        <div class="col-12">
+          <div class="row pb-default">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-6">
+              <h2 class="custom">Register to the Investor Insight Portal</h2>
+              <p>To allow you to register to the Investor Insight Portal, please enter your mobile telephone number and email address below. You will receive an invitation via email in June with step-by-step instructions to activate your online access.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-6">
+              <!-- FORM BEGIN -->
+              <!-- FORM BEGIN -->
+
+              <form class="needs-validation" novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="row pb-default">
+
+                  <!-- Email Address -->
+                  <div class="col-12 pb-4">
+                    <label for="EmailAddress" class="form-label">Email address*</label>
+                    <input type="email"
+                           class="form-control"
+                           id="EmailAddress"
+                           name="EmailAddress"
+                           [(ngModel)]="emailAddress"
+                           required
+                           email
+                           #email="ngModel">
+                    <div class="invalid-feedback">*Please enter a valid email address</div>
+                  </div>
+
+                  <!-- Country Code & Phone Number -->
+                  <div class="col-12 pb-5">
+                    <div class="row">
+
+                      <!-- Country Code -->
+                      <div class="col-12 col-md-5 pb-4 pb-lg-0">
+                        <label for="CountryCode" class="form-label">Country code</label>
+                        <select class="form-select"
+                                id="CountryCode"
+                                name="CountryCode"
+                                [(ngModel)]="CountryCode"
+                                (ngModelChange)="onCountryCodeChange()"
+                                #countryCode="ngModel">
+                          <option selected disabled value="">Please select</option>
+                          <option value="44">United Kingdom (+44)</option>
+                          <option value="1">United States (+1)</option>
+                          <hr>
+                          <option value="93">Afghanistan (+93)</option>
+                          <option value="355">Albania (+355)</option>
+                          <option value="213">Algeria (+213)</option>
+                          <option value="1684">American Samoa (+1684)</option>
+                          <option value="376">Andorra (+376)</option>
+                          <option value="244">Angola (+244)</option>
+                          <option value="1264">Anguilla (+1264)</option>
+                          <option value="672">Antarctica (+672)</option>
+                          <option value="1268">Antigua and Barbuda (+1268)</option>
+                          <option value="54">Argentina (+54)</option>
+                          <option value="374">Armenia (+374)</option>
+                          <option value="297">Aruba (+297)</option>
+                          <option value="61">Australia (+61)</option>
+                          <option value="43">Austria (+43)</option>
+                          <option value="994">Azerbaijan (+994)</option>
+                          <option value="1242">Bahamas (+1242)</option>
+                          <option value="973">Bahrain (+973)</option>
+                          <option value="880">Bangladesh (+880)</option>
+                          <option value="1246">Barbados (+1246)</option>
+                          <option value="375">Belarus (+375)</option>
+                          <option value="32">Belgium (+32)</option>
+                          <option value="501">Belize (+501)</option>
+                          <option value="229">Benin (+229)</option>
+                          <option value="1441">Bermuda (+1441)</option>
+                          <option value="975">Bhutan (+975)</option>
+                          <option value="591">Bolivia (+591)</option>
+                          <option value="387">Bosnia and Herzegovina (+387)</option>
+                          <option value="267">Botswana (+267)</option>
+                          <option value="55">Brazil (+55)</option>
+                          <option value="246">British Indian Ocean Territory (+246)</option>
+                          <option value="1284">British Virgin Islands (+1284)</option>
+                          <option value="673">Brunei (+673)</option>
+                          <option value="359">Bulgaria (+359)</option>
+                          <option value="226">Burkina Faso (+226)</option>
+                          <option value="257">Burundi (+257)</option>
+                          <option value="855">Cambodia (+855)</option>
+                          <option value="237">Cameroon (+237)</option>
+                          <option value="1">Canada (+1)</option>
+                          <option value="238">Cape Verde (+238)</option>
+                          <option value="1345">Cayman Islands (+1345)</option>
+                          <option value="236">Central African Republic (+236)</option>
+                          <option value="235">Chad (+235)</option>
+                          <option value="56">Chile (+56)</option>
+                          <option value="86">China (+86)</option>
+                          <option value="61">Christmas Island (+61)</option>
+                          <option value="61">Cocos Islands (+61)</option>
+                          <option value="57">Colombia (+57)</option>
+                          <option value="269">Comoros (+269)</option>
+                          <option value="682">Cook Islands (+682)</option>
+                          <option value="506">Costa Rica (+506)</option>
+                          <option value="385">Croatia (+385)</option>
+                          <option value="53">Cuba (+53)</option>
+                          <option value="599">Curacao (+599)</option>
+                          <option value="357">Cyprus (+357)</option>
+                          <option value="420">Czech Republic (+420)</option>
+                          <option value="243">Democratic Republic of the Congo (+243)</option>
+                          <option value="45">Denmark (+45)</option>
+                          <option value="253">Djibouti (+253)</option>
+                          <option value="1767">Dominica (+1767)</option>
+                          <option value="1809">Dominican Republic (+1809)</option>
+                          <option value="670">East Timor (+670)</option>
+                          <option value="593">Ecuador (+593)</option>
+                          <option value="20">Egypt (+20)</option>
+                          <option value="503">El Salvador (+503)</option>
+                          <option value="240">Equatorial Guinea (+240)</option>
+                          <option value="291">Eritrea (+291)</option>
+                          <option value="372">Estonia (+372)</option>
+                          <option value="251">Ethiopia (+251)</option>
+                          <option value="500">Falkland Islands (+500)</option>
+                          <option value="298">Faroe Islands (+298)</option>
+                          <option value="679">Fiji (+679)</option>
+                          <option value="358">Finland (+358)</option>
+                          <option value="33">France (+33)</option>
+                          <option value="689">French Polynesia (+689)</option>
+                          <option value="241">Gabon (+241)</option>
+                          <option value="220">Gambia (+220)</option>
+                          <option value="995">Georgia (+995)</option>
+                          <option value="49">Germany (+49)</option>
+                          <option value="233">Ghana (+233)</option>
+                          <option value="350">Gibraltar (+350)</option>
+                          <option value="30">Greece (+30)</option>
+                          <option value="299">Greenland (+299)</option>
+                          <option value="1473">Grenada (+1473)</option>
+                          <option value="1671">Guam (+1671)</option>
+                          <option value="502">Guatemala (+502)</option>
+                          <option value="44-1481">Guernsey (+44-1481)</option>
+                          <option value="224">Guinea (+224)</option>
+                          <option value="245">Guinea-Bissau (+245)</option>
+                          <option value="592">Guyana (+592)</option>
+                          <option value="509">Haiti (+509)</option>
+                          <option value="504">Honduras (+504)</option>
+                          <option value="852">Hong Kong (+852)</option>
+                          <option value="36">Hungary (+36)</option>
+                          <option value="354">Iceland (+354)</option>
+                          <option value="91">India (+91)</option>
+                          <option value="62">Indonesia (+62)</option>
+                          <option value="98">Iran (+98)</option>
+                          <option value="964">Iraq (+964)</option>
+                          <option value="353">Ireland (+353)</option>
+                          <option value="44-1624">Isle of Man (+44-1624)</option>
+                          <option value="972">Israel (+972)</option>
+                          <option value="39">Italy (+39)</option>
+                          <option value="225">Ivory Coast (+225)</option>
+                          <option value="1876">Jamaica (+1876)</option>
+                          <option value="81">Japan (+81)</option>
+                          <option value="44-1534">Jersey (+44-1534)</option>
+                          <option value="962">Jordan (+962)</option>
+                          <option value="7">Kazakhstan (+7)</option>
+                          <option value="254">Kenya (+254)</option>
+                          <option value="686">Kiribati (+686)</option>
+                          <option value="383">Kosovo (+383)</option>
+                          <option value="965">Kuwait (+965)</option>
+                          <option value="996">Kyrgyzstan (+996)</option>
+                          <option value="856">Laos (+856)</option>
+                          <option value="371">Latvia (+371)</option>
+                          <option value="961">Lebanon (+961)</option>
+                          <option value="266">Lesotho (+266)</option>
+                          <option value="231">Liberia (+231)</option>
+                          <option value="218">Libya (+218)</option>
+                          <option value="423">Liechtenstein (+423)</option>
+                          <option value="370">Lithuania (+370)</option>
+                          <option value="352">Luxembourg (+352)</option>
+                          <option value="853">Macau (+853)</option>
+                          <option value="389">Macedonia (+389)</option>
+                          <option value="261">Madagascar (+261)</option>
+                          <option value="265">Malawi (+265)</option>
+                          <option value="60">Malaysia (+60)</option>
+                          <option value="960">Maldives (+960)</option>
+                          <option value="223">Mali (+223)</option>
+                          <option value="356">Malta (+356)</option>
+                          <option value="692">Marshall Islands (+692)</option>
+                          <option value="222">Mauritania (+222)</option>
+                          <option value="230">Mauritius (+230)</option>
+                          <option value="262">Mayotte (+262)</option>
+                          <option value="52">Mexico (+52)</option>
+                          <option value="691">Micronesia (+691)</option>
+                          <option value="373">Moldova (+373)</option>
+                          <option value="377">Monaco (+377)</option>
+                          <option value="976">Mongolia (+976)</option>
+                          <option value="382">Montenegro (+382)</option>
+                          <option value="1664">Montserrat (+1664)</option>
+                          <option value="212">Morocco (+212)</option>
+                          <option value="258">Mozambique (+258)</option>
+                          <option value="95">Myanmar (+95)</option>
+                          <option value="264">Namibia (+264)</option>
+                          <option value="674">Nauru (+674)</option>
+                          <option value="977">Nepal (+977)</option>
+                          <option value="31">Netherlands (+31)</option>
+                          <option value="599">Netherlands Antilles (+599)</option>
+                          <option value="687">New Caledonia (+687)</option>
+                          <option value="64">New Zealand (+64)</option>
+                          <option value="505">Nicaragua (+505)</option>
+                          <option value="227">Niger (+227)</option>
+                          <option value="234">Nigeria (+234)</option>
+                          <option value="683">Niue (+683)</option>
+                          <option value="850">North Korea (+850)</option>
+                          <option value="1670">Northern Mariana Islands (+1670)</option>
+                          <option value="47">Norway (+47)</option>
+                          <option value="968">Oman (+968)</option>
+                          <option value="92">Pakistan (+92)</option>
+                          <option value="680">Palau (+680)</option>
+                          <option value="970">Palestine (+970)</option>
+                          <option value="507">Panama (+507)</option>
+                          <option value="675">Papua New Guinea (+675)</option>
+                          <option value="595">Paraguay (+595)</option>
+                          <option value="51">Peru (+51)</option>
+                          <option value="63">Philippines (+63)</option>
+                          <option value="64">Pitcairn (+64)</option>
+                          <option value="48">Poland (+48)</option>
+                          <option value="351">Portugal (+351)</option>
+                          <option value="1787">Puerto Rico (+1787)</option>
+                          <option value="974">Qatar (+974)</option>
+                          <option value="242">Republic of the Congo (+242)</option>
+                          <option value="262">Reunion (+262)</option>
+                          <option value="40">Romania (+40)</option>
+                          <option value="7">Russia (+7)</option>
+                          <option value="250">Rwanda (+250)</option>
+                          <option value="590">Saint Barthelemy (+590)</option>
+                          <option value="290">Saint Helena (+290)</option>
+                          <option value="1869">Saint Kitts and Nevis (+1869)</option>
+                          <option value="1758">Saint Lucia (+1758)</option>
+                          <option value="590">Saint Martin (+590)</option>
+                          <option value="508">Saint Pierre and Miquelon (+508)</option>
+                          <option value="1784">Saint Vincent and the Grenadines (+1784)</option>
+                          <option value="685">Samoa (+685)</option>
+                          <option value="378">San Marino (+378)</option>
+                          <option value="239">Sao Tome and Principe (+239)</option>
+                          <option value="966">Saudi Arabia (+966)</option>
+                          <option value="221">Senegal (+221)</option>
+                          <option value="381">Serbia (+381)</option>
+                          <option value="248">Seychelles (+248)</option>
+                          <option value="232">Sierra Leone (+232)</option>
+                          <option value="65">Singapore (+65)</option>
+                          <option value="1721">Sint Maarten (+1721)</option>
+                          <option value="421">Slovakia (+421)</option>
+                          <option value="386">Slovenia (+386)</option>
+                          <option value="677">Solomon Islands (+677)</option>
+                          <option value="252">Somalia (+252)</option>
+                          <option value="27">South Africa (+27)</option>
+                          <option value="82">South Korea (+82)</option>
+                          <option value="211">South Sudan (+211)</option>
+                          <option value="34">Spain (+34)</option>
+                          <option value="94">Sri Lanka (+94)</option>
+                          <option value="249">Sudan (+249)</option>
+                          <option value="597">Suriname (+597)</option>
+                          <option value="47">Svalbard and Jan Mayen (+47)</option>
+                          <option value="268">Swaziland (+268)</option>
+                          <option value="46">Sweden (+46)</option>
+                          <option value="41">Switzerland (+41)</option>
+                          <option value="963">Syria (+963)</option>
+                          <option value="886">Taiwan (+886)</option>
+                          <option value="992">Tajikistan (+992)</option>
+                          <option value="255">Tanzania (+255)</option>
+                          <option value="66">Thailand (+66)</option>
+                          <option value="228">Togo (+228)</option>
+                          <option value="690">Tokelau (+690)</option>
+                          <option value="676">Tonga (+676)</option>
+                          <option value="1868">Trinidad and Tobago (+1868)</option>
+                          <option value="216">Tunisia (+216)</option>
+                          <option value="90">Turkey (+90)</option>
+                          <option value="993">Turkmenistan (+993)</option>
+                          <option value="1649">Turks and Caicos Islands (+1649)</option>
+                          <option value="688">Tuvalu (+688)</option>
+                          <option value="1340">U.S. Virgin Islands (+1340)</option>
+                          <option value="256">Uganda (+256)</option>
+                          <option value="380">Ukraine (+380)</option>
+                          <option value="971">United Arab Emirates (+971)</option>
+                          <option value="598">Uruguay (+598)</option>
+                          <option value="998">Uzbekistan (+998)</option>
+                          <option value="678">Vanuatu (+678)</option>
+                          <option value="379">Vatican (+379)</option>
+                          <option value="58">Venezuela (+58)</option>
+                          <option value="84">Vietnam (+84)</option>
+                          <option value="681">Wallis and Futuna (+681)</option>
+                          <option value="212">Western Sahara (+212)</option>
+                          <option value="967">Yemen (+967)</option>
+                          <option value="260">Zambia (+260)</option>
+                          <option value="263">Zimbabwe (+263)</option>
                         </select>
-                        <div class="invalid-feedback">REQUIRED</div>
-                        <div class="select-selected" (click)="selectBoxClick($event)">{{shirtSizeDisplayName}}</div>
-                        <div class="select-items select-hide">
-                          <div *ngFor="let shirtSize of shirtList" (click)="selectOptionClick($event, 'shirtSize')">
-                            {{shirtSize.displayName}}
-                          </div>
-                        </div>
+                        <!--<div *ngIf="showCountryCodeError" class="invalid-feedback d-block">
+                          *required
+                        </div>-->
+                        <div *ngIf="showCountryCodeError" class="invalid-feedback d-block">*required</div>
                       </div>
-                    </div>
-                  </div>                
-                <p>Your football shirt will be sent direct to your home, fill in your details below:</p>
-                <div class="form-row">
-                  <div class="col-12 fr-single">
-                    <p>Please confirm your date of birth.</p>
-                    <input type="date" class="form-control w-40 bg-img-none" placeholder="DD/MM/YYYY (DOB)" [(ngModel)]="enteredDOB" (ngModelChange)="enteredDOB = $event" name="enteredDOB" (change)="checkAge()" required />
-                    <div class="invalid-feedback">PLEASE ENTER A DATE OF BIRTH</div>
-                    <div *ngIf="ageError">
-                      <p style="font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80% ">
-                        We are sorry this promotion is only available to people over the age of 18.
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="firstname" (change)="replaceChar()" [(ngModel)]="enteredFirstName" type="text" class="form-control w-80" placeholder="FORENAME" required autocomplete="new">
-                    <div class="invalid-feedback">REQUIRED</div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="surname" (change)="replaceChar()" [(ngModel)]="enteredLastName" type="text" class="form-control w-80" placeholder="SURNAME" required autocomplete="new">
-                    <div class="invalid-feedback">REQUIRED</div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="postcode" [(ngModel)]="enteredPostcode" type="text" class="form-control w-80" placeholder="POSTCODE / EIRCODE" (ngModelChange)="postCodeChange($event)" required autocomplete="new">
-                    <div class="invalid-feedback">REQUIRED</div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <button type="button" class="btn btn-primary" (click)="FindAddress()">FIND ADDRESS</button>
-                    <p *ngIf="showPostcodeError">Please enter a Postcode</p>
-                  </div>
-                  <div *ngIf="addressLoaded" class="col-12 fr-single">
-                    <div class="custom-select">
-                      <select id="enteredAddress" name="enteredAddress" [(ngModel)]="enteredAddress" class="form-control">
-                        <option *ngFor="let address of addressList" [selected]="address==addressDisplay" value={{address}}>
-                          {{address}}
-                        </option>
-                      </select>
-                      <div class="select-selected" (click)="selectBoxClick($event)" style="-webkit-box-shadow: 0px 6px 7px 1px rgba(0,0,0,0.4); box-shadow: 0px 6px 7px 1px rgba(0,0,0,0.4); border-color: #000; overflow: hidden;">{{addressDisplay}}</div>
-                      <div class="select-items select-hide">
-                        <div *ngFor="let address of addressList" (click)="selectOptionClick($event, 'address')">
-                          {{address}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div *ngIf="postcodeError">
-                    <p style="font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80% ">
-                      We couldn't find any addresses matching the postcode you've entered. Please fill in the address fields manually.
-                    </p>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="address1" (change)="replaceChar()" [(ngModel)]="enteredAddress1" type="text" class="form-control" placeholder="ADDRESS 1" (ngModelChange)="address1Change($event)" required autocomplete="new">
-                    <div class="invalid-feedback">REQUIRED</div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="address2" (change)="replaceChar()" [(ngModel)]="enteredAddress2" type="text" class="form-control" placeholder="ADDRESS 2" autocomplete="new">
 
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="address3" (change)="replaceChar()" [(ngModel)]="enteredAddress3" type="text" class="form-control" placeholder="ADDRESS 3" autocomplete="new">
-                    <div class="invalid-feedback">REQUIRED</div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="town" (change)="replaceChar()" [(ngModel)]="enteredTown" type="text" class="form-control" placeholder="TOWN" required autocomplete="new">
-                    <div class="invalid-feedback">REQUIRED</div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="county" (change)="replaceChar()" [(ngModel)]="enteredCounty" type="text" class="form-control" placeholder="COUNTY" autocomplete="new">
-                  </div>
-                  <div class="col-12 fr-single">
-                    <div class="custom-select">
-                      <select name="enteredCountry" [(ngModel)]="enteredCountry" class="form-control" required>
-                        <option *ngFor="let country of countryList" [selected]="country.countryName==countryName" [ngValue]="country">
-                          {{country.countryName}}
-                        </option>
-                      </select>
-                      <div class="invalid-feedback">Please select a country</div>
-                      <div class="select-selected" (click)="selectBoxClick($event)">{{countryName}}</div>
-                      <div class="select-items select-hide">
-                        <div *ngFor="let country of countryList" (click)="selectOptionClick($event, 'country')">
-                          {{country.countryName}}
+                      <!-- Phone Number -->
+                      <div class="col-12 col-md-7">
+                        <label for="PhoneNumber" class="form-label">Mobile telephone number</label>
+                        <input type="text"
+                               class="form-control-PhoneNumber"
+                               id="PhoneNumber"
+                               name="PhoneNumber"
+                               [(ngModel)]="PhoneNumber"
+                               pattern="[0-9]{6,14}"
+                               #phoneNumber="ngModel"
+                               (ngModelChange)="onPhoneNumberChange()">
+                        <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="invalid-feedback">
+                          Please enter a valid phone number (6–14 digits).
                         </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- Checkbox -->
+                  <div class="col-12 pb-2">
+                    <div class="form-check">
+                      <input class="form-check-input"
+                             type="checkbox"
+                             id="invalidCheck"
+                             required
+                             [(ngModel)]="isChecked"
+                             name="isChecked"
+                             #isCheckedControl="ngModel">
+                      <label class="form-check-label" for="invalidCheck">
+                        I confirm that my details are complete and correct*
+                      </label>
+                      <div *ngIf="isCheckedControl.invalid && isCheckedControl.touched" class="invalid-feedback">
+                        *You must agree before submitting.
                       </div>
                     </div>
                   </div>
+
+                  <!-- Note -->
+                  <div class="col-12 pb-default">
+                    <div class="form-note">
+                      <p>Please ensure all information is completed before submitting. If you only have one contact method such as an email address or a mobile number, you may still proceed. Please select Submit to confirm.</p>
+                    </div>
+                  </div>
+
+                  <!-- Submit -->
                   <div class="col-12">
-                    <p>We will use your email address to send you confirmation and dispatch information.</p>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <input name="email" [(ngModel)]="enteredEmail" type="email" class="form-control" placeholder="EMAIL ADDRESS" required pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="new">
-                    <div class="invalid-feedback">PLEASE ENTER A VALID EMAIL</div>
-                  </div>
-                  <div class="col-12">
-                    <p>Which retailer did you buy your pack of Carling from that had the Limited Edition can inside?</p>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <div class="custom-select">
-                      <select name="enteredRetailer" [(ngModel)]="enteredRetailer" class="form-control">
-                        <option *ngFor="let retailer of retailerList" [selected]="retailer.retailerName==retailerName" [ngValue]="retailer">
-                          {{retailer.retailerName}}
-                        </option>
-                      </select>
-                      <div class="select-selected" (click)="selectBoxClick($event)">{{retailerName}}</div>
-                      <div class="select-items select-hide">
-                        <div *ngFor="let retailer of retailerList" (click)="selectOptionClick($event, 'retailer')">
-                          {{retailer.retailerName}}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-12 fr-single">
-                    <div class="form-group">
-                      <label class="form-check-label d-inline-block mr-3" for="TandC">I accept the Terms &amp; Conditions </label>
-                      <input class="form-check-input d-inline-block ml-1" type="checkbox" id="TandCchecked" name="TandCchecked" [(ngModel)]="TandCchecked" (Change)="TandCchecked" required>
-                      <div class="invalid-feedback">You must agree before submitting.</div>
-                    </div>
-                    <p>See <a href="https://www.carling.com/terms" target="_blank" class="link-black">www.carling.com/terms</a> for full terms.</p>
-                  </div>
-
-                  <div class="col-12 fr-single">
-                    <div>
-                      <label>OPT IN*</label>
-                      <p>If you tick the box below, you consent to the Promoter and its affiliated brands and entities contacting you for the purposes set out below:</p>
-                    </div>
-                    <div class="form-check form-check-inline align-items-start">
-                      <input class="form-check-input mt-1 chkbox-min" type="checkbox" id="OptInYes" name="OptInYes" [(ngModel)]="OptIn" (Change)="OptIn">
-                      <label class="form-check-label" for="OptInYes"><span class="font-carling">YES,</span> <span class="font-avenir">I would like to receive messages about sweepstakes, events, special offers, promotions and other fun stuff from Molson Coors and <a href="https://www.molsoncoors.com/brands/our-brands" target="_blank" class="link-black">its affiliated brands and entities</a>. See <a href="https://www.molsoncoors.com/privacy-policy" target="_blank" class="link-black">Privacy Policy | Molson Coors</a> for information about how Molson Coors collects, uses and shares your information.</span></label>
-                    </div>
-                  </div>
-
-                  <div class="col-12 fr-single">
-                    <div class="pb-4">
-                      <re-captcha (resolved)="resolved($event)"
-                                  (error)="onError($event)"
-                                  errorMode="handled"
-                                  siteKey="6LcmZnsaAAAAAB631hQmLt9W_Ut1-K1ICG1-YExS" required></re-captcha>
-                    </div>
-                  </div>
-                  <div *ngIf="captchaRequired && !captchaError " class="error">
-                    <p style=" font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80%">
-                      Please verify you're not a robot.&nbsp;
-                    </p>
-                  </div>
-                  <div *ngIf="captchaError && !captchaRequired" class="error">
-                    <p style=" font-family: Carling-Regular, sans-serif; text-transform: uppercase; color: #DA291C; margin-bottom: 1rem; font-size: 80%">
-                      Couldn't verify captcha. Please try after sometime.
-                    </p>
+                    <button type="submit" class="btn btn-outline-primary btn-submit">Submit</button>
                   </div>
                 </div>
-              </div>             
+              </form>
+
+
+
+              <!-- FORM END -->
             </div>
-            <div class="col-12 fr-single">
-              <p>Please see our <a href="https://www.molsoncoors.com/privacy-policy" target="_blank">Privacy Policy</a> for more information on how we collect, use and share your information. </p>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary">SUBMIT</button>
-              </div>
-            </div>
-          </form>
-          
+          </div>
         </div>
-      </section>
-    </article>
+      </div>
+    </div>
+  </main>
 
-  </ng-container>
+  <footer class="footer mt-auto main pt-default pb-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-block">
+            <p>Past performance is not a guide to future performance and may not be repeated...</p>
+            <p>Any reference to regions/countries/sectors/stocks/securities is for illustrative purposes...</p>
+            <p>Issued in the UK by Schroder Investment Management Limited, 1 London Wall Place...</p>
+            <p>To the extent that you are in North America, this content is issued by Schroder...</p>
+            <p>To the extent that you are in the Channel Islands, this content is issued by Cazenove...</p>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-default justify-content-between">
+        <div class="col-12 col-md-auto">
+          <ul class="footer-nav">
+            <li><a href="https://www.schroders.com/en-gb/uk/local/" target="_blank" rel="noopener noreferrer">Schroders | UK</a></li>
+            <li><a href="https://www.schroders.com/en-gb/uk/local/footer/privacy-policy/" target="_blank" rel="noopener noreferrer">Privacy Statement</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-auto">
+          <p>© Copyright 2025 Schroders plc</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-  <app-thank-you *ngIf="dataAdded"></app-thank-you>
-  <app-sorry *ngIf="insertError" [errorMessage]="message"></app-sorry>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+  <script src="js/config.js"></script>
+  <script>
+    // Set the timer
+    let totalSeconds = 900;  
+    const timerElement = document.getElementById("sessiontimerCurrent");
 
-
-
+    setInterval(() => {
+      if (totalSeconds <= 0) return;
+      totalSeconds--;
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      timerElement.textContent = `${minutes}m:${seconds < 10 ? "0" : ""}${seconds}s`;
+    }, 1000);
+  </script>
+</body>
+</html>

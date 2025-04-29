@@ -1,4 +1,4 @@
-﻿using Carling_ClaimYourShirt.Models;
+﻿using HSBCSchrodersQRCodeCapture.Models;
 using System.Collections.Generic;
 
 namespace Repository.Interface

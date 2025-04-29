@@ -1,6 +1,6 @@
 ﻿using Services.Interfaces;
 using System.Collections.Generic;
-using Carling_ClaimYourShirt.Models;
+using HSBCSchrodersQRCodeCapture.Models;
 using Repository.Interface;
 
 namespace Services

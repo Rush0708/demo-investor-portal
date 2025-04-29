@@ -13,9 +13,9 @@
       "*, ServiceReference1"
     ],
     "references": [
-      "C:\\Nexdox\\labraham\\Git\\CarlingShirtCompetition\\Carling_ClaimYourShirt\\bin\\Debug\\netcoreapp3.1\\Carling_ClaimYourShirt.Models.dll",
-      "C:\\Nexdox\\labraham\\Git\\CarlingShirtCompetition\\Carling_ClaimYourShirt\\bin\\Debug\\netcoreapp3.1\\Carling_ClaimYourShirt.Repository.dll",
-      "C:\\Nexdox\\labraham\\Git\\CarlingShirtCompetition\\Carling_ClaimYourShirt\\bin\\Debug\\netcoreapp3.1\\Carling_ClaimYourShirt.Services.dll",
+      "C:\\Users\\Rashmi.Patil\\source\\repos\\HSBCSchrodersQRCodeCapture\\HSBCSchrodersQRCodeCapture\\bin\\Debug\\netcoreapp3.1\\HSBCSchrodersQRCodeCapture.Models.dll",
+      "C:\\Users\\Rashmi.Patil\\source\\repos\\HSBCSchrodersQRCodeCapture\\HSBCSchrodersQRCodeCapture\\bin\\Debug\\netcoreapp3.1\\HSBCSchrodersQRCodeCapture.Repository.dll",
+      "C:\\Users\\Rashmi.Patil\\source\\repos\\HSBCSchrodersQRCodeCapture\\HSBCSchrodersQRCodeCapture\\bin\\Debug\\netcoreapp3.1\\HSBCSchrodersQRCodeCapture.Services.dll",
       "Microsoft.AspNetCore.NodeServices, {Microsoft.AspNetCore.NodeServices, 3.1.6}",
       "Microsoft.AspNetCore.SpaServices, {Microsoft.AspNetCore.SpaServices, 3.1.6}",
       "Microsoft.AspNetCore.SpaServices.Extensions, {Microsoft.AspNetCore.SpaServices.Extensions, 3.1.6}",

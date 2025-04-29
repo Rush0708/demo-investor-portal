@@ -4,11 +4,11 @@ using Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-using Carling_ClaimYourShirt.Models;
+using HSBCSchrodersQRCodeCapture.Models;
 using System.Collections.Generic;
-using Carling_ClaimYourShirt.Services.Interfaces;
+using HSBCSchrodersQRCodeCapture.Services.Interfaces;
 
-namespace Carling_ClaimYourShirt.Controllers
+namespace HSBCSchrodersQRCodeCapture.Controllers
 {
     [ApiController]
     [Route("[controller]")]

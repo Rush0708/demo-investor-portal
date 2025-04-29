@@ -1,4 +1,4 @@
-﻿using Carling_ClaimYourShirt.Models.RequestModels;
+﻿using HSBCSchrodersQRCodeCapture.Models.RequestModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +8,7 @@ namespace Services.Interfaces
 {
     public interface  ICompetitionService
     {
-        Task<int> CheckCompetitiondata(GetCompetitionDataRequest getCompetitionDataRequest);
+        Task<int> CheckInvestordata(GetCompetitionDataRequest getCompetitionDataRequest);
         Task<int> GetCompetitionId(string competitionName);
 
 

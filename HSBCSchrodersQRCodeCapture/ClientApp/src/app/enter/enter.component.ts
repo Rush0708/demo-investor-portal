@@ -1,49 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormService } from "../services/form.service";
-import { CompetitionService } from "../services/competition.service";
-import { Competition } from "../viewModels/competition.viewmodel"
+import { InvestorDataService } from "../services/investorData.service";
 import { NgForm } from '@angular/forms';
-
+import { InvestorData } from '../viewModels/investorData.viewmodel';
 
 @Component({
   selector: 'app-enter',
   templateUrl: './enter.component.html',
   styleUrls: ['../app.component.css']
 })
-export class EnterComponent implements OnInit  {
+export class EnterComponent implements OnInit, AfterViewInit {
 
-  public dataError = false;
+  public dataError1 = false;  // Invalid investor code (404)
+  public dataError2 = false;  // Details already present (400)
   public errorMessage = "";
-  public competitionName = "Umbro Shirt Competition";
- 
-  get enteredCompetitioncode(): string {
-    return this.formService.form.uniqueCode;
-  }
-  set enteredCompetitioncode(value: string) {
-    this.formService.form.uniqueCode = value;    
+  public investorName = "Umbro Shirt Investor";
+
+  constructor(
+    private formService: FormService,
+    private investorDataService: InvestorDataService,
+    private router: Router
+  ) { }
+
+  get enteredInvestorCode(): string {
+    return this.formService.form.investorID;
   }
 
-  constructor(private formService: FormService, private competitionService : CompetitionService, private router: Router) {   
-    
+  set enteredInvestorCode(value: string) {
+    this.formService.form.investorID = value;
   }
 
-  ngOnInit(): void {  
-
+  ngOnInit(): void {
     if (!this.formService.form.enterPageValid) {
       this.formService.clearSession();
-      this.GetCompetitionId(this.competitionName); 
     }
   }
 
-  ngAfterViewInit() {
-
-    (function () {
+  ngAfterViewInit(): void {
+    (() => {
       'use strict';
-      var forms = document.getElementsByClassName('needs-validation');
-      var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
+      const forms = document.getElementsByClassName('needs-validation');
+      Array.prototype.forEach.call(forms, (form: any) => {
+        form.addEventListener('submit', function (event: Event) {
+          if (!form.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
           }
@@ -53,46 +53,61 @@ export class EnterComponent implements OnInit  {
     })();
   }
 
-  onSubmit(f: NgForm) {
-
-    if (f.valid) {      
-      this.checkCompetitiondata();    
-    }   
+  onSubmit(f: NgForm): void {
+    if (f.valid) {
+      this.checkInvestorData();
+    }
   }
 
-  onCodeChange() {
-    
-    this.dataError = false;
-    this.formService.form.enterPageValid = false
+  onCodeChange(): void {
+    this.dataError1 = false;
+    this.dataError2 = false;
+    this.errorMessage = "";
+    this.formService.form.enterPageValid = false;
     this.formService.saveToSession();
   }
-  GetCompetitionId(competitionName: string) {
-    
-    this.competitionService.getCompetitionId(competitionName).subscribe(res => {
-      if (res != 0 || res != null) {          
 
-        this.formService.form.competitionId = res;        
+  checkInvestorData(): void {
+    const investorCode = this.formService.form.investorID;
+    const investor: InvestorData = {
+      Id: null,
+      InvestorID: investorCode
+    };
+
+    this.investorDataService.CheckInvestordata(investor).subscribe(
+      res => {
+        if (res.isValid) {
+          this.formService.form.enterPageValid = true;
+          this.formService.saveToSession();
+          this.router.navigate(['/details']);
+        } else {
+          // Normally shouldn't hit this if API returns 400/404 correctly
+          this.showInvalidInvestorError();
+        }
+      },
+      error => {
+        if (error.status === 404) {
+          this.showInvalidInvestorError();
+        } else if (error.status === 400) {
+          this.showDetailsAlreadyPresentError();
+        } else {
+          // Generic fallback
+          this.dataError1 = true;
+          window.location.href = "sorry";
+        }
       }
-    })
+    );
   }
-  checkCompetitiondata() {
-    var competition = new Competition();
-    competition.competitionId = this.formService.form.competitionId;
-    competition.competitionCode = this.enteredCompetitioncode;  
-    this.competitionService.checkCompetitiondata(competition).subscribe(res => {      
-      if (res == 1) {
-        this.formService.form.enterPageValid = true;
-        this.formService.saveToSession();
-        this.router.navigate(['/details']);
-      }
-      else if(res==2){
-        this.dataError = true;
-        this.errorMessage ="We’re sorry this unique code has already been redeemed, please check you have entered the code as it appears on the golden can. If you still have problems please contact CarlingXUmbro@paragon-cc.co.uk with a photo of the code on the golden can or contact us on 08082810302. "
-      }
-      else if (res == 3) {
-        this.dataError = true;
-        this.errorMessage = "YOUR CODE HAS BEEN ENTERED INCORRECTLY, PLEASE CHECK YOU HAVE ENTERED THE CODE AS IT APPEARS ON THE GOLDEN CAN. "
-      }
-    } );
+
+  private showInvalidInvestorError(): void {
+    this.dataError1 = true;
+    this.dataError2 = false;
+    this.errorMessage = "Details not found – please check your statement for your Investor ID.";
+  }
+
+  private showDetailsAlreadyPresentError(): void {
+    this.dataError1 = false;
+    this.dataError2 = true;
+    this.errorMessage = "Details are already present for this user.";
   }
 }

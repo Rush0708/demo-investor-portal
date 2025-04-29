@@ -1,18 +1,18 @@
-﻿using Carling_ClaimYourShirt.Models.RequestModels;
+﻿using HSBCSchrodersQRCodeCapture.Models.RequestModels;
 using Repository.Interface;
 using Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace Services
 {
-    public class CompetitionService : ICompetitionService
+    public class InvestorDataService : ICompetitionService
     {
         private readonly ICompetitionRepository _competitionRepository;
-        public CompetitionService(ICompetitionRepository competitionRepository)
+        public InvestorDataService(ICompetitionRepository competitionRepository)
         {
             _competitionRepository = competitionRepository;
         }
-        public async Task<int> CheckCompetitiondata(GetCompetitionDataRequest getCompetitionDataRequest)
+        public async Task<int> CheckInvestordata(GetCompetitionDataRequest getCompetitionDataRequest)
         {
              var dataExists=   await _competitionRepository.CheckCompetitiondata(getCompetitionDataRequest);
             return dataExists;

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Carling_ClaimYourShirt.Models;
+using HSBCSchrodersQRCodeCapture.Models;
 
-namespace Carling_ClaimYourShirt.Services.Interfaces
+namespace HSBCSchrodersQRCodeCapture.Services.Interfaces
 {
     public interface IRetailerService
     {

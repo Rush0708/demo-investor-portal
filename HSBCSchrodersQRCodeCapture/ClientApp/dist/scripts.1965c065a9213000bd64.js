@@ -1,0 +1,1 @@
+export function selectSetup(){document.addEventListener("click",(function(e){var t,s,c,l,n,a=[];for(t=document.getElementsByClassName("select-items"),s=document.getElementsByClassName("select-selected"),l=t.length,n=s.length,c=0;c<n;c++)e==s[c]?a.push(c):s[c].classList.remove("select-arrow-active");for(c=0;c<l;c++)a.indexOf(c)&&t[c].classList.add("select-hide")}))}

@@ -1,6 +1,6 @@
 using System;
 
-namespace Carling_ClaimYourShirt
+namespace HSBCSchrodersQRCodeCapture
 {
     public class WeatherForecast
     {

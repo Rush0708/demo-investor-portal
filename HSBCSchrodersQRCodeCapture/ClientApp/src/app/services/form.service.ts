@@ -1,38 +1,23 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { Form } from "../viewModels/form.viewmodel";
 
-
-@Injectable()
-
-
+@Injectable({
+  providedIn: 'root'
+})
 export class FormService {
-  form = new Form();
+  form: Form = new Form();
 
-  constructor() {
+  constructor() { }
 
+  saveToSession(): void {
+    // Removed as requested
   }
 
-  saveToSession() {
-    if (typeof (sessionStorage) !== "undefined") {
-      sessionStorage.setItem('claimYourShirtForm', JSON.stringify(this.form))
-    }
+  restoreFromSession(): void {
+    // Removed as requested
   }
 
-  restoreFromSession() {
-    if (typeof (sessionStorage) !== "undefined") {
-      if (sessionStorage.length > 0) {
-        var storedForm = sessionStorage.getItem('claimYourShirtForm');
-        if (storedForm !== null) {
-          this.form = JSON.parse(storedForm);
-        }
-      }
-    }
-  }
-
-  clearSession() {
-    if (typeof (sessionStorage) !== "undefined") {
-      sessionStorage.clear();
-    }
+  clearSession(): void {
+    this.form = new Form();
   }
 }

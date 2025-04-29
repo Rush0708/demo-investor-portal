@@ -30,7 +30,10 @@ import { QuestionsComponent } from './questions/questions.component';
 import { QuestionAnswerService } from "./services/question.and.answer.service";
 import { QuestionAnswerRepository } from "./repositories/question.and.answer.repository";
 import { SorryComponent } from './sorry/sorry.component';
-
+import { InvestorService } from './services/investor.service';
+import { InvestorRepository } from "./repositories/investor.repository";
+import { InvestorDataRepository } from './repositories/investorData.repository';
+import { InvestorDataService } from './services/investorData.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +56,8 @@ import { SorryComponent } from './sorry/sorry.component';
   ],
   providers: [
     CompetitionService,
+    InvestorService,
+    InvestorRepository,
     CompetitionRepository,
     ShirtSizeService,
     ShirtSizeRepository,
@@ -66,8 +71,11 @@ import { SorryComponent } from './sorry/sorry.component';
     CustomerRepository,
     QuestionAnswerService,
     QuestionAnswerRepository,
-    FormService
-
+    FormService,
+    InvestorDataRepository,
+    InvestorDataService
+    
+    
   ],
   bootstrap: [AppComponent]
 })

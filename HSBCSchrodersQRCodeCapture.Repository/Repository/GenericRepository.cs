@@ -4,8 +4,8 @@ namespace Repository.Repository
 {
     public class GenericRepository : IGenericRepository
     {
-        protected readonly CompetitionDbContext _dbContext;
-        public GenericRepository(CompetitionDbContext dbContext) 
+        protected readonly InvestorDbContext _dbContext;
+        public GenericRepository(InvestorDbContext dbContext)
         {
             _dbContext = dbContext;
         }

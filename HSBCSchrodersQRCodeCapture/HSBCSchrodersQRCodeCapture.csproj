@@ -48,6 +48,8 @@
     <None Remove="ClientApp\src\app\repositories\competition.repository.ts" />
     <None Remove="ClientApp\src\app\repositories\country.repository.ts" />
     <None Remove="ClientApp\src\app\repositories\customer.repository.ts" />
+    <None Remove="ClientApp\src\app\repositories\investor.repository.ts" />
+    <None Remove="ClientApp\src\app\repositories\investorData.repository.ts" />
     <None Remove="ClientApp\src\app\repositories\question.and.answer.repository.ts" />
     <None Remove="ClientApp\src\app\repositories\retailer.repository.ts" />
     <None Remove="ClientApp\src\app\repositories\shirtsize.repository.ts" />
@@ -56,12 +58,16 @@
     <None Remove="ClientApp\src\app\services\country.service.ts" />
     <None Remove="ClientApp\src\app\services\customer.service.ts" />
     <None Remove="ClientApp\src\app\services\form.service.ts" />
+    <None Remove="ClientApp\src\app\services\investor.service.ts" />
+    <None Remove="ClientApp\src\app\services\investorData.service.ts" />
     <None Remove="ClientApp\src\app\services\question.and.answer.service.ts" />
     <None Remove="ClientApp\src\app\services\retailer.service.ts" />
     <None Remove="ClientApp\src\app\services\shirtsize.service.ts" />
     <None Remove="ClientApp\src\app\viewModels\competition.viewmodel.ts" />
     <None Remove="ClientApp\src\app\viewModels\customer.viewmodel.ts" />
     <None Remove="ClientApp\src\app\viewModels\form.viewmodel.ts" />
+    <None Remove="ClientApp\src\app\viewModels\investor.viewmodel.ts" />
+    <None Remove="ClientApp\src\app\viewModels\investorData.viewmodel.ts" />
     <None Remove="ClientApp\src\assets\js\setup.d.ts" />
   </ItemGroup>
 

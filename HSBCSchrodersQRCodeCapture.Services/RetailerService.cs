@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Carling_ClaimYourShirt.Models;
-using Carling_ClaimYourShirt.Services.Interfaces;
-using Carling_ClaimYourShirt.Repository.Interface;
+using HSBCSchrodersQRCodeCapture.Models;
+using HSBCSchrodersQRCodeCapture.Services.Interfaces;
+using HSBCSchrodersQRCodeCapture.Repository.Interface;
 
-namespace Carling_ClaimYourShirt.Services
+namespace HSBCSchrodersQRCodeCapture.Services
 {
     public class RetailerService : IRetailerService
     {

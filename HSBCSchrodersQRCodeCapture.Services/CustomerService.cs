@@ -1,12 +1,12 @@
-﻿using Carling_ClaimYourShirt.Models.RequestModels;
-using Carling_ClaimYourShirt.Repository.Interface;
-using Carling_ClaimYourShirt.Services.Interfaces;
+﻿using HSBCSchrodersQRCodeCapture.Models.RequestModels;
+using HSBCSchrodersQRCodeCapture.Repository.Interface;
+using HSBCSchrodersQRCodeCapture.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Carling_ClaimYourShirt.Services
+namespace HSBCSchrodersQRCodeCapture.Services
 {
     public class CustomerService : ICustomerService
     {

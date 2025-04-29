@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Carling_ClaimYourShirt.Models.RequestModels
+namespace HSBCSchrodersQRCodeCapture.Models.RequestModels
 {
     public class GetCompetitionDataRequest
     {

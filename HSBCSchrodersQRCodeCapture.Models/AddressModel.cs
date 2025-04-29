@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Carling_ClaimYourShirt.Models
+namespace HSBCSchrodersQRCodeCapture.Models
 {
     public class AddressModel
     {
