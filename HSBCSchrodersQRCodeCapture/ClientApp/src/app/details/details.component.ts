@@ -21,6 +21,7 @@ export class DetailsComponent implements OnInit {
   public emailAddress: string = "";
   public CountryCode: string = "";
   public PhoneNumber: string = "";
+  public isChecked: boolean = false;
 
   public showCountryCodeError: boolean = false;
   public submitAttempted: boolean = false;
@@ -39,32 +40,39 @@ export class DetailsComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    this.investorCode = +this.formService.form.investorID;
     this.submitAttempted = true;
-    this.validateCountryCode();
+    Object.keys(f.controls).forEach(field => {
+      const control = f.controls[field];
+      control.markAsTouched({ onlySelf: true });
+    });
 
-    if (f.valid && !this.showCountryCodeError) {
-      const investorData: Investor = {
-        Id: 0,
-        InvestorID: (this.investorCode).toString(),
-        EmailAddress: this.emailAddress,
-        CountryCode: this.CountryCode,
-        PhoneNumber: this.PhoneNumber
-      };
+    if (f.valid) {
+      this.investorCode = +this.formService.form.investorID;
+      this.validateCountryCode();
 
-      this.investorService.addInvestor(investorData).subscribe(
-        response => {
-          this.router.navigate(['/thank-you']);
-        },
-        error => {
-          this.dataError = true;
-          if (error.status === 400) {
-            this.errorMessage = 'There was an issue with the data you submitted. Please check the fields and try again.';
-          } else {
-            this.errorMessage = 'There was an error submitting your details. Please try again.';
+      if (!this.showCountryCodeError) {
+        const investorData: Investor = {
+          Id: 0,
+          InvestorID: (this.investorCode).toString(),
+          EmailAddress: this.emailAddress,
+          CountryCode: this.CountryCode,
+          PhoneNumber: this.PhoneNumber
+        };
+
+        this.investorService.addInvestor(investorData).subscribe(
+          response => {
+            this.router.navigate(['/thank-you']);
+          },
+          error => {
+            this.dataError = true;
+            if (error.status === 400) {
+              this.errorMessage = 'There was an issue with the data you submitted. Please check the fields and try again.';
+            } else {
+              this.errorMessage = 'There was an error submitting your details. Please try again.';
+            }
           }
-        }
-      );
+        );
+      }
     }
   }
 

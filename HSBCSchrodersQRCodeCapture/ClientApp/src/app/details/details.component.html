@@ -65,7 +65,6 @@
               <form class="needs-validation" novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
                 <div class="row pb-default">
 
-                  <!-- Email Address -->
                   <div class="col-12 pb-4">
                     <label for="EmailAddress" class="form-label">Email address*</label>
                     <input type="email"
@@ -74,10 +73,17 @@
                            name="EmailAddress"
                            [(ngModel)]="emailAddress"
                            required
-                           email
-                           #email="ngModel">
-                    <div class="invalid-feedback">*Please enter a valid email address</div>
+                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                           #email="ngModel"
+                           [ngClass]="{'is-invalid': email.invalid && email.touched}">
+                    <div *ngIf="email.errors?.required && email.touched" class="invalid-feedback">
+                      *Please enter a valid email address
+                    </div>
+                    <div *ngIf="email.errors?.pattern && email.touched" class="invalid-feedback">
+                      *Please enter a valid email address
+                    </div>
                   </div>
+
 
                   <!-- Country Code & Phone Number -->
                   <div class="col-12 pb-5">
@@ -344,16 +350,16 @@
                       <!-- Phone Number -->
                       <div class="col-12 col-md-7">
                         <label for="PhoneNumber" class="form-label">Mobile telephone number</label>
-                        <input type="text"
+                        <input type="tel"
                                class="form-control-PhoneNumber"
                                id="PhoneNumber"
                                name="PhoneNumber"
                                [(ngModel)]="PhoneNumber"
-                               pattern="[0-9]{6,14}"
+                               pattern="^\+?[1-9]\d{7,14}$"
                                #phoneNumber="ngModel"
-                               (ngModelChange)="onPhoneNumberChange()">
+                               [ngClass]="{'is-invalid': phoneNumber.invalid && phoneNumber.touched}">
                         <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="invalid-feedback">
-                          Please enter a valid phone number (6–14 digits).
+                          Please enter a valid phone number.
                         </div>
                       </div>
 
@@ -369,7 +375,8 @@
                              required
                              [(ngModel)]="isChecked"
                              name="isChecked"
-                             #isCheckedControl="ngModel">
+                             #isCheckedControl="ngModel"
+                             [ngClass]="{'is-invalid': isCheckedControl.invalid && isCheckedControl.touched}">
                       <label class="form-check-label" for="invalidCheck">
                         I confirm that my details are complete and correct*
                       </label>
@@ -435,7 +442,7 @@
   <script src="js/config.js"></script>
   <script>
     // Set the timer
-    let totalSeconds = 900;  
+    let totalSeconds = 900;
     const timerElement = document.getElementById("sessiontimerCurrent");
 
     setInterval(() => {

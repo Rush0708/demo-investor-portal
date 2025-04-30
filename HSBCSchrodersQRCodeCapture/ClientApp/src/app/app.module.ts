@@ -11,24 +11,13 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { EnterComponent } from './enter/enter.component';
-import { CompetitionService } from './services/competition.service';
-import { CompetitionRepository } from './repositories/competition.repository';
 import { DetailsComponent } from './details/details.component';
-import { ShirtSizeService } from "./services/shirtsize.service";
-import { ShirtSizeRepository } from "./repositories/shirtsize.repository";
 import { CountryService } from "./services/country.service";
 import { CountryRepository } from "./repositories/country.repository";
-import { RetailerService } from "./services/retailer.service";
-import { RetailerRepository } from "./repositories/retailer.repository";
 import { AddressFinderService } from "./services/addressfinder.service";
 import { AddressFinderRepository } from "./repositories/addressfinder.repository";
-import { CustomerService } from "./services/customer.service";
-import { CustomerRepository } from "./repositories/customer.repository";
 import { FormService } from './services/form.service';
 import { ThankyouComponent } from './thank-you/thank-you.component';
-import { QuestionsComponent } from './questions/questions.component';
-import { QuestionAnswerService } from "./services/question.and.answer.service";
-import { QuestionAnswerRepository } from "./repositories/question.and.answer.repository";
 import { SorryComponent } from './sorry/sorry.component';
 import { InvestorService } from './services/investor.service';
 import { InvestorRepository } from "./repositories/investor.repository";
@@ -44,7 +33,6 @@ import { InvestorDataService } from './services/investorData.service';
     EnterComponent,
     DetailsComponent,
     ThankyouComponent,
-    QuestionsComponent,
     SorryComponent
   ],
   imports: [
@@ -55,22 +43,12 @@ import { InvestorDataService } from './services/investorData.service';
     RecaptchaModule 
   ],
   providers: [
-    CompetitionService,
     InvestorService,
     InvestorRepository,
-    CompetitionRepository,
-    ShirtSizeService,
-    ShirtSizeRepository,
     CountryService,
     CountryRepository,
-    RetailerService,
-    RetailerRepository,
     AddressFinderRepository,
     AddressFinderService,
-    CustomerService,
-    CustomerRepository,
-    QuestionAnswerService,
-    QuestionAnswerRepository,
     FormService,
     InvestorDataRepository,
     InvestorDataService

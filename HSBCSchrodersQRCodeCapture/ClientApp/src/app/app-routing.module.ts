@@ -4,7 +4,6 @@ import { AuthGuard } from './auth.guard';
 import { EnterComponent } from './enter/enter.component';
 import { DetailsComponent } from './details/details.component';
 import { ThankyouComponent } from './thank-you/thank-you.component';
-import { QuestionsComponent } from './questions/questions.component';
 import { SorryComponent } from './sorry/sorry.component';
 
 const routes: Routes = [
@@ -21,11 +20,6 @@ const routes: Routes = [
   {
     path: "thank-you",
     component: ThankyouComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: "questions",
-    component: QuestionsComponent,
     canActivate: [AuthGuard]
   },
   {
