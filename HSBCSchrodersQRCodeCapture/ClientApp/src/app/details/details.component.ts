@@ -82,7 +82,7 @@ export class DetailsComponent implements OnInit {
     }
   }
 
-  onCodeChange() {
+  onCountryCodeChange() {
     if (this.submitAttempted) {
       this.validateCountryCode();
     }
