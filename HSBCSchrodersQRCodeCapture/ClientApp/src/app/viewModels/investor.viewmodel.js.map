@@ -1,1 +1,1 @@
-{"version":3,"file":"competition.viewmodel.js","sourceRoot":"","sources":["competition.viewmodel.ts"],"names":[],"mappings":";;;AAAA;IAIE;IAEA,CAAC;IACH,kBAAC;AAAD,CAAC,AAPD,IAOC;AAPY,kCAAW"}
+{"version":3,"file":"investor.viewmodel.js","sourceRoot":"","sources":["investor.viewmodel.ts"],"names":[],"mappings":";;;AAEA;IAOE;QACE,IAAI,CAAC,EAAE,GAAG,CAAC,CAAC;QACZ,IAAI,CAAC,UAAU,GAAG,EAAE,CAAC;QACrB,IAAI,CAAC,YAAY,GAAG,EAAE,CAAC;QACvB,IAAI,CAAC,WAAW,GAAG,EAAE,CAAC;QACtB,IAAI,CAAC,WAAW,GAAG,EAAE,CAAC;IACxB,CAAC;IACH,eAAC;AAAD,CAAC,AAdD,IAcC;AAdY,4BAAQ"}

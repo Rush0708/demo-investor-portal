@@ -1,6 +1,4 @@
 import { Countries } from "./country.viewmodel";
-import { Retailers } from "./retailer.viewmodel";
-import { Shirtsizes } from "./shirtsizes.viewmodel";
 
 export class Investor {
   public Id: number;

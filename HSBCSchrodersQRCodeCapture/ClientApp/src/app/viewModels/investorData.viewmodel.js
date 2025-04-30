@@ -1,10 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Competition = void 0;
+exports.InvestorData = void 0;
 var InvestorData = /** @class */ (function () {
-  function Investor() {
+    function InvestorData() {
+        this.Id = null;
+        this.InvestorID = '';
     }
-  return InvestorData;
+    return InvestorData;
 }());
 exports.InvestorData = InvestorData;
-//# sourceMappingURL=competition.viewmodel.js.map
+//# sourceMappingURL=investorData.viewmodel.js.map
