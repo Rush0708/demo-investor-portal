@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <body>
   <!--<app-nav-menu></app-nav-menu>-->
-  <div>
-    <router-outlet></router-outlet>
+  <div *ngIf="sessionTimeout" class="modal-overlay">
+    <div class="modal-box">
+      <h2>Session Timeout</h2>
+      <p>Your session has timed out due to inactivity.</p>
+         <button (click)="restartSession()" class="btn btn-outline-primary btn-submit">Restart Session</button>
+    </div>
   </div>
+  <router-outlet></router-outlet>
+
   <footer class="footer mt-auto main pt-default pb-default">
     <div class="container">
       <div class="row">

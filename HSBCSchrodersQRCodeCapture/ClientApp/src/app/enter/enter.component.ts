@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { Router } from "@angular/router";
 import { FormService } from "../services/form.service";
 import { InvestorDataService } from "../services/investorData.service";
@@ -33,6 +33,7 @@ export class EnterComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     if (!this.formService.form.enterPageValid) {
+      this.formService.form.investorID = '';
       this.formService.clearSession();
     }
   }
@@ -52,7 +53,7 @@ export class EnterComponent implements OnInit, AfterViewInit {
       });
     })();
   }
-
+  
   onSubmit(f: NgForm): void {
     if (f.valid) {
       this.checkInvestorData();
@@ -64,7 +65,7 @@ export class EnterComponent implements OnInit, AfterViewInit {
     this.dataError2 = false;
     this.errorMessage = "";
     this.formService.form.enterPageValid = false;
-    this.formService.saveToSession();
+    //this.formService.saveToSession();
   }
 
   checkInvestorData(): void {
@@ -78,10 +79,9 @@ export class EnterComponent implements OnInit, AfterViewInit {
       res => {
         if (res.isValid) {
           this.formService.form.enterPageValid = true;
-          this.formService.saveToSession();
+          //this.formService.saveToSession();
           this.router.navigate(['/details']);
         } else {
-          // Normally shouldn't hit this if API returns 400/404 correctly
           this.showInvalidInvestorError();
         }
       },
@@ -91,7 +91,6 @@ export class EnterComponent implements OnInit, AfterViewInit {
         } else if (error.status === 400) {
           this.showDetailsAlreadyPresentError();
         } else {
-          // Generic fallback
           this.dataError1 = true;
           window.location.href = "sorry";
         }

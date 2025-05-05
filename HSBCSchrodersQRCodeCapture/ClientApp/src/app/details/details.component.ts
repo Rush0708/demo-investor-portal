@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, HostListener } from '@angular/core';
 import { Router } from "@angular/router";
 import { NgForm } from '@angular/forms';
 import { FormService } from "../services/form.service";
@@ -38,7 +38,12 @@ export class DetailsComponent implements OnInit {
       this.router.navigate(['/enter']);
     }
   }
-
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: Event): void {
+    this.formService.form.investorID = '';
+    this.formService.clearSession();
+    this.router.navigate(['/enter']);
+  }
   onSubmit(f: NgForm) {
     this.submitAttempted = true;
     Object.keys(f.controls).forEach(field => {
