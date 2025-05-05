@@ -1,7 +1,9 @@
-using Carling_ClaimYourShirt.Repository.Interface;
-using Carling_ClaimYourShirt.Repository.Repository;
-using Carling_ClaimYourShirt.Services;
-using Carling_ClaimYourShirt.Services.Interfaces;
+using HSBCSchrodersQRCodeCapture.Repository.Interface;
+using HSBCSchrodersQRCodeCapture.Repository.Repository;
+using HSBCSchrodersQRCodeCapture.Services;
+using HSBCSchrodersQRCodeCapture.Services.Interfaces;
+using HSBCSchrodersQRCodeCapture.Repository.Interface;
+using HSBCSchrodersQRCodeCapture.Repository.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,7 +18,7 @@ using Repository.Repository;
 using Services;
 using Services.Interfaces;
 
-namespace Carling_ClaimYourShirt
+namespace HSBCSchrodersQRCodeCapture
 {
     public class Startup
     {
@@ -36,22 +38,24 @@ namespace Carling_ClaimYourShirt
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddDbContext<CompetitionDbContext>(options =>
+            services.AddDbContext<InvestorDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("molsoncoorsDB"));
+                options.UseSqlServer(Configuration.GetConnectionString("SchrodersDB"));
             });
-            services.AddTransient<ICompetitionService, CompetitionService>();
-            services.AddTransient<ICompetitionRepository, CompetitionRepository>();
-            services.AddTransient<IShirtSizeService, ShirtSizeService>();
-            services.AddTransient<IShirtSizeRepository, ShirtSizeRepository>();
-            services.AddTransient<ICountryService, CountryService>();
-            services.AddTransient<ICountryRepository, CountryRepository>();
-            services.AddTransient<IRetailerService, RetailerService>();
-            services.AddTransient<IRetailerRepository, RetailerRepository>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<ICustomerService, CustomerService>();
-            services.AddTransient<IQuestionAnswerService, QuestionAnswerService>();
-            services.AddTransient<IQuestionAnswerRepository, QuestionAnswerRepository>();
+        
+            services.AddTransient<IInvestorService, InvestorService>();
+            services.AddTransient<IInvestorDataService, InvestorDataService>();
+            services.AddTransient<IInvestorRepository, InvestorRepository>();
+            services.AddTransient<IInvestorDataRepository, InvestorDataRepository>();
+            //services.AddTransient<ICountryService, CountryService>();
+            //services.AddTransient<ICompetitionService, CompetitionService>();
+            //services.AddTransient<ICompetitionRepository, CompetitionRepository>();
+            //services.AddTransient<IRetailerService, RetailerService>();
+            //services.AddTransient<IRetailerRepository, RetailerRepository>();
+            //services.AddTransient<ICustomerRepository, CustomerRepository>();
+            //services.AddTransient<ICustomerService, CustomerService>();
+            //services.AddTransient<IQuestionAnswerService, QuestionAnswerService>();
+            //services.AddTransient<IQuestionAnswerRepository, QuestionAnswerRepository>();
 
         }
 

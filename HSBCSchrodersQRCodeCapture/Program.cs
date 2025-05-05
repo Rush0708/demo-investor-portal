@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Carling_ClaimYourShirt
+namespace HSBCSchrodersQRCodeCapture
 {
     public class Program
     {

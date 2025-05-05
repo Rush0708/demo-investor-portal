@@ -5,7 +5,6 @@ var Form = /** @class */ (function () {
     function Form() {
         this.enterPageValid = false;
         this.detailsPageValid = false;
-        this.questionNumber = 0;
     }
     return Form;
 }());

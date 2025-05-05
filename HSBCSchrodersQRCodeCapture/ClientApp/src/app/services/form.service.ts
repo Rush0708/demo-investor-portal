@@ -1,38 +1,48 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Form } from "../viewModels/form.viewmodel";
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
-
-@Injectable()
-
-
+@Injectable({
+  providedIn: 'root',
+})
 export class FormService {
-  form = new Form();
+  form: any = { investorID: '' };
+  private timeoutId: any;
+  private readonly TIMEOUT_DURATION = 15 * 60 * 1000;
 
-  constructor() {
+  sessionTimedOut$: Subject<boolean> = new Subject<boolean>();
 
+  constructor() { }
+
+  clearSession(): void {
+    this.form = { investorID: '' };
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
-  saveToSession() {
-    if (typeof (sessionStorage) !== "undefined") {
-      sessionStorage.setItem('claimYourShirtForm', JSON.stringify(this.form))
+  startSessionTimer(): void {
+    this.clearExistingTimer();
+
+    this.timeoutId = setTimeout(() => {
+      this.clearSession();
+      this.sessionTimedOut$.next(true);
+    }, this.TIMEOUT_DURATION);
+  }
+
+  resetSessionTimer(): void {
+    this.startSessionTimer();
+  }
+
+  clearExistingTimer(): void {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
     }
   }
 
-  restoreFromSession() {
-    if (typeof (sessionStorage) !== "undefined") {
-      if (sessionStorage.length > 0) {
-        var storedForm = sessionStorage.getItem('claimYourShirtForm');
-        if (storedForm !== null) {
-          this.form = JSON.parse(storedForm);
-        }
-      }
-    }
+  saveToSession(): void {
+    
   }
 
-  clearSession() {
-    if (typeof (sessionStorage) !== "undefined") {
-      sessionStorage.clear();
-    }
+  loadFromSession(): any {
+    return null;
   }
 }
