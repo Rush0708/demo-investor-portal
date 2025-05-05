@@ -26,6 +26,10 @@ export class AppComponent implements OnInit {
 
   showSessionTimeoutModal() {
     this.sessionTimeout = true;
+    this.freezePage();
+  }
+  freezePage() {
+    document.body.style.pointerEvents = 'none';
   }
 
   @HostListener('document:mousemove')

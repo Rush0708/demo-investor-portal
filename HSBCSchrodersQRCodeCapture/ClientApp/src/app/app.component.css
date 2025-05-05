@@ -292,7 +292,16 @@ footer.main {
       margin: 0px 12px;
     }
 
-
+.show-warning {
+  display: block !important;
+  font-size: 16px;
+  background-color: #b1000e;
+  color: #FFF;
+  position: fixed;
+  z-index: 999;
+  width: 100vw;
+  min-height: 100px;
+}
 .modal-overlay {
   position: fixed;
   top: 0;
