@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <body>
   <!--<app-nav-menu></app-nav-menu>-->
-  <div *ngIf="sessionTimeout" class="show-warning">
-    <div class="container" id="sessionTimeout">Your session has expired due to inactivity. You will be redirected to the first page to restart the process.</div>
+  <div *ngIf="sessionTimeoutWarning" class="show-warning">
+    <div class="container">
+      <p>
+        The session will expire after 20 minutes of no activity.<br />
+        <strong>{{ countdownDisplay }}</strong>
+      </p>
+    </div>
   </div>
+
+  <div *ngIf="sessionTimeout" class="show-warning">
+    <div class="container" id="sessionTimeout">
+      {{ countdownDisplay }}
+    </div>
+  </div>
+
   <router-outlet></router-outlet>
+
 
   <footer class="footer mt-auto main pt-default pb-default">
     <div class="container">
