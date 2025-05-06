@@ -8,28 +8,57 @@ import { Component, OnInit, HostListener } from '@angular/core';
 export class AppComponent implements OnInit {
 
   sessionTimeout: boolean = false;
-  timeoutDuration: number = 900000; // 15 minute in milliseconds
-  timeoutTimer: any;
+  sessionTimeoutWarning: boolean = false;
+  countdownDisplay: string = '';
+  warningTimer: any;
+  sessionTimer: any;
+  countdownInterval: any;
+
+  countdownSeconds: number = 300; 
+  sessionDuration: number = 20 * 60 * 1000;
+  warningDuration: number = 15 * 60 * 1000;
 
   ngOnInit(): void {
-    this.startSessionTimer();
+    this.startSessionTimers();
   }
 
-  startSessionTimer() {
-    if (this.timeoutTimer) {
-      clearTimeout(this.timeoutTimer);
+  startSessionTimers() {
+    this.clearAllTimers();
+
+    // Trigger final expiration
+    this.sessionTimer = setTimeout(() => {
+      this.handleSessionExpired();
+    }, this.sessionDuration);
+
+    // Trigger warning
+    this.warningTimer = setTimeout(() => {
+      this.startCountdown();
+    }, this.warningDuration);
+  }
+
+  startCountdown() {
+    this.sessionTimeoutWarning = true;
+    this.updateCountdownDisplay();
+
+    this.countdownInterval = setInterval(() => {
+      this.countdownSeconds--;
+      this.updateCountdownDisplay();
+
+      if (this.countdownSeconds <= 0) {
+        clearInterval(this.countdownInterval);
+        this.handleSessionExpired();
+      }
+    }, 1000);
+  }
+
+  updateCountdownDisplay() {
+    if (this.countdownSeconds > 0) {
+      const minutes = Math.floor(this.countdownSeconds / 60);
+      const seconds = this.countdownSeconds % 60;
+      this.countdownDisplay = `${minutes}m:${seconds < 10 ? '0' : ''}${seconds}s remaining`;
+    } else {
+      this.countdownDisplay = 'Your session has expired due to inactivity. You will be redirected to the first page to restart the process.';
     }
-    this.timeoutTimer = setTimeout(() => {
-      this.showSessionTimeoutModal();
-    }, this.timeoutDuration);
-  }
-
-  showSessionTimeoutModal() {
-    this.sessionTimeout = true;
-    this.freezePage();
-  }
-  freezePage() {
-    document.body.style.pointerEvents = 'none';
   }
 
   @HostListener('document:mousemove')
@@ -38,11 +67,27 @@ export class AppComponent implements OnInit {
   @HostListener('document:focusin')
   onUserActivity() {
     if (!this.sessionTimeout) {
-      this.startSessionTimer();
+      this.countdownSeconds = 300;
+      this.sessionTimeoutWarning = false;
+      this.startSessionTimers();
     }
   }
 
-  restartSession() {
-    window.location.reload();
+  handleSessionExpired() {
+    this.clearAllTimers();
+    this.sessionTimeoutWarning = false;
+    this.sessionTimeout = true;
+    this.countdownDisplay = 'Your session has expired due to inactivity. You will be redirected to the first page to restart the process.';
+    document.body.style.pointerEvents = 'none';
+
+    setTimeout(() => {
+      window.location.reload();
+    }, 10000);
+  }
+
+  clearAllTimers() {
+    clearTimeout(this.sessionTimer);
+    clearTimeout(this.warningTimer);
+    clearInterval(this.countdownInterval);
   }
 }
