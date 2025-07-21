@@ -350,7 +350,7 @@
                                id="PhoneNumber"
                                name="PhoneNumber"
                                [(ngModel)]="PhoneNumber"
-                               pattern="^\+?[1-9]\d{7,14}$"
+                               pattern="^(?!44{1,4})(04\d{8}|4\d{8}|[1-35-9]\d{9})$"
                                #phoneNumber="ngModel"
                                [ngClass]="{'is-invalid': phoneNumber.invalid && phoneNumber.touched}">
                         <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="invalid-feedback">
