@@ -1,0 +1,97 @@
+<ng-container>
+  <header class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <h2 style="margin:0; color:#003366; font-weight:700;">DemoCorp</h2>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-auto">
+          <h1>Demo Investor Portal</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="pt-default pb-default">
+    <div class="container">
+      <div class="row pb-default">
+        <div class="col-12">
+          <div class="row pb-default">
+            <div class="col-12">
+              <h2 class="custom">Sign-in</h2>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-6">
+
+              <form #f="ngForm" class="needs-validation" novalidate (ngSubmit)="onSubmit(f)">
+                <div class="row pb-default">
+
+                  <div class="col-12 pb-4">
+                    <label for="InvestorID" class="form-label">Investor ID*</label>
+
+                    <input type="text"
+                           class="form-control"
+                           id="InvestorID"
+                           name="InvestorID"
+                           [(ngModel)]="enteredInvestorCode"
+                           placeholder="9-digit numeric code"
+                           minlength="9"
+                           maxlength="9"
+                           pattern="[0-9]{9}"
+                           required
+                           (input)="onCodeChange()">
+
+                    <div class="invalid-feedback">Please enter a valid Investor ID</div>
+                    <p class="pt-2">* Demo only. No real investor data is used.</p>
+                  </div>
+
+                  <!-- Demo error: ID not found -->
+                  <div *ngIf="dataError1" class="col-12 pb-4">
+                    <div class="form-note">
+                      <h3 class="mb-4">Demo Error: Investor ID not found</h3>
+                      <div class="pt-2">
+                        This is only a demo.
+                        Try using the test ID: <strong>999999999</strong>
+                        <br><br>
+                        For help, contact:
+                        <br><br>
+                        <strong>Email:</strong> support@democorp.test<br>
+                        <strong>Website:</strong> <a href="#">www.democorp.test</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Demo error: data already submitted -->
+                  <div *ngIf="dataError2" class="col-12 pb-4">
+                    <div class="form-note">
+                      <h3 class="mb-4">Demo Error: Sample data already submitted</h3>
+                      <p>This is a simulated response. No real submission was recorded.</p>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-outline-primary btn-submit">Sign-in</button>
+                  </div>
+
+                </div>
+              </form>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+</ng-container>

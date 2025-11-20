@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Registration Portal</title>
+
+  <!-- Generic favicon -->
+  <link rel="icon" type="image/png" href="assets/images/demo-favicon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body class="d-flex flex-column h-100">
+
+  <!-- SESSION TIMER -->
+  <div id="sessiontimer" style="display: none;">
+    <div class="container" id="sessiontimerInner">
+      For your security, your session will expire in
+      <span id="sessiontimerCurrent" style="font-weight: bold;">18m:44s</span>
+      due to inactivity. Please continue your activity to avoid losing your progress.
+      If no action is taken, you will be redirected to the first page and will need to restart.
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="main">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+
+          <!-- GENERIC DEMO LOGO -->
+          <!-- GENERIC DEMO LOGO -->
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <h2 style="margin:0; color:#003366; font-weight:700;">DemoCorp</h2>
+          </a>
+
+
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- BANNER -->
+  <section class="banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-auto">
+          <h1>Client Access Registration</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN FORM -->
+  <main class="pt-default pb-default">
+    <div class="container">
+      <div class="row pb-default">
+        <div class="col-12">
+
+          <div class="row pb-default">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-6">
+              <h2 class="custom">Register for Access</h2>
+              <p>
+                Please enter your mobile number and email address.
+                You will receive an invitation with instructions on how to activate your account.
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 col-xl-6">
+
+              <!-- FORM -->
+              <form class="needs-validation" novalidate (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+                <div class="row pb-default">
+
+                  <!-- EMAIL -->
+                  <div class="col-12 pb-4">
+                    <label for="EmailAddress" class="form-label">Email address*</label>
+                    <input type="email"
+                           class="form-control"
+                           id="EmailAddress"
+                           name="EmailAddress"
+                           [(ngModel)]="emailAddress"
+                           required
+                           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                           #email="ngModel"
+                           [ngClass]="{'is-invalid': email.invalid && email.touched}">
+                    <div *ngIf="email.errors?.required && email.touched" class="invalid-feedback">
+                      *Please enter a valid email address
+                    </div>
+                    <div *ngIf="email.errors?.pattern && email.touched" class="invalid-feedback">
+                      *Please enter a valid email address
+                    </div>
+                  </div>
+
+                  <!-- COUNTRY CODE + PHONE NUMBER -->
+                  <div class="col-12 pb-5">
+                    <div class="row">
+
+                      <!-- COUNTRY CODE -->
+                      <div class="col-12 col-md-5 pb-4 pb-lg-0">
+                        <label for="CountryCode" class="form-label">Country code</label>
+                        <select class="form-select"
+                                id="CountryCode"
+                                name="CountryCode"
+                                [(ngModel)]="CountryCode"
+                                (ngModelChange)="onCountryCodeChange()"
+                                #countryCode="ngModel">
+                          <option selected disabled value="">Please select</option>
+                          <option value="44">United Kingdom (+44)</option>
+                          <option value="1">United States (+1)</option>
+
+                          <!-- Full list continues unchanged below -->
+                          <!-- (Kept generic — contains no company references) -->
+
+                        </select>
+                        <div *ngIf="showCountryCodeError" class="invalid-feedback d-block">
+                          *required
+                        </div>
+                      </div>
+
+                      <!-- PHONE -->
+                      <div class="col-12 col-md-7">
+                        <label for="PhoneNumber" class="form-label">Mobile telephone number</label>
+                        <input type="tel"
+                               class="form-control-PhoneNumber"
+                               id="PhoneNumber"
+                               name="PhoneNumber"
+                               [(ngModel)]="PhoneNumber"
+                               pattern="^(?!44{1,4})(04\d{8}|4\d{8}|[1-35-9]\d{9})$"
+                               #phoneNumber="ngModel"
+                               [ngClass]="{'is-invalid': phoneNumber.invalid && phoneNumber.touched}">
+                        <div *ngIf="phoneNumber.invalid && phoneNumber.touched" class="invalid-feedback">
+                          Please enter a valid phone number.
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <!-- CONFIRM CHECKBOX -->
+                  <div class="col-12 pb-2">
+                    <div class="form-check">
+                      <input class="form-check-input"
+                             type="checkbox"
+                             id="invalidCheck"
+                             required
+                             [(ngModel)]="isChecked"
+                             name="isChecked"
+                             #isCheckedControl="ngModel"
+                             [ngClass]="{'is-invalid': isCheckedControl.invalid && isCheckedControl.touched}">
+                      <label class="form-check-label" for="invalidCheck">
+                        I confirm that my details are complete and correct*
+                      </label>
+                      <div *ngIf="isCheckedControl.invalid && isCheckedControl.touched" class="invalid-feedback">
+                        *You must agree before submitting.
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- NOTE -->
+                  <div class="col-12 pb-default">
+                    <div class="form-note">
+                      <p>Please ensure all information is completed before submitting. You may proceed with only one contact method if necessary.</p>
+                    </div>
+                  </div>
+
+                  <!-- SUBMIT -->
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-outline-primary btn-submit">Submit</button>
+                  </div>
+
+                </div>
+              </form>
+              <!-- END FORM -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- SCRIPTS -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="js/config.js"></script>
+
+  <script>
+    // Session timer
+    let totalSeconds = 900;
+    const timerElement = document.getElementById("sessiontimerCurrent");
+
+    setInterval(() => {
+      if (totalSeconds <= 0) return;
+      totalSeconds--;
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      timerElement.textContent = `${minutes}m:${seconds < 10 ? "0" : ""}${seconds}s`;
+    }, 1000);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<body>
+  <!--<app-nav-menu></app-nav-menu>-->
+  <div *ngIf="sessionTimeoutWarning" class="show-warning">
+    <div class="container">
+      <p>
+        The session will expire after 20 minutes of no activity.<br />
+        <strong>{{ countdownDisplay }}</strong>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="sessionTimeout" class="show-warning">
+    <div class="container" id="sessionTimeout">
+      {{ countdownDisplay }}
+    </div>
+  </div>
+
+  <router-outlet></router-outlet>
+
+
+  <footer class="footer mt-auto main pt-default pb-default">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-block">
+            <p>This is a demo site. All content is for illustrative purposes only and does not represent real investment advice, recommendations, or financial instruments.</p>
+            <p>Past performance or examples shown do not indicate future results. Investment involves risk, and the value of investments may go up or down.</p>
+            <p>All company names, logos, and references are fictional and used for demonstration purposes only.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row pt-default justify-content-between">
+        <div class="col-12 col-md-auto">
+          <ul class="footer-nav">
+            <li><a href="#">DemoCorp | Home</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-auto">
+          <p>© Copyright 2025 DemoCorp</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
