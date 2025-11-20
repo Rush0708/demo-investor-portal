@@ -1,17 +1,16 @@
 trigger:
   branches:
     include:
-      - master
+      - main   # Updated from master to main for modern git defaults
 
 pool:
-  name: Azure Pipelines
   vmImage: 'windows-latest'
 
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
-  RestoreBuildProjects: '**/HSBCSchrodersQRCodeCapture.csproj'
+  RestoreBuildProjects: '**/*.csproj'   # Generic restore
 
 steps:
 - task: UseNode@1
@@ -21,21 +20,21 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
-    projects: '**/HSBCSchrodersQRCodeCapture.csproj'
+    projects: '$(RestoreBuildProjects)'
     feedsToUse: 'select'
     verbosityRestore: 'Detailed'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '**/HSBCSchrodersQRCodeCapture.csproj'
+    projects: '$(RestoreBuildProjects)'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/HSBCSchrodersQRCodeCapture.csproj'
+    projects: '$(RestoreBuildProjects)'
     arguments: '--output $(build.artifactStagingDirectory)'
 
 - task: NuGetToolInstaller@1
@@ -49,7 +48,7 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'HSBCSchrodersQRCodeCapture'
+    publishVstsFeed: 'DemoFeed'  # Generic feed name
     arguments: '--output $(build.artifactStagingDirectory)'
 
 - task: VSBuild@1
